@@ -1,0 +1,13 @@
+﻿/*.table tr:nth-child(even)  {
+    background-color:rgba(128, 128, 128, 0.32) !important;
+    font-weight: bold;
+}*/
+
+.myinfo {
+    background-color: rgba(128, 128, 128, 0.10);
+}
+
+.mydanger {
+    background-color: rgba(0, 255, 255, 0.10);
+}
+

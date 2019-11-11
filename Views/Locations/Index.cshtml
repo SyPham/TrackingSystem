@@ -1,0 +1,128 @@
+﻿
+@model PagedList.IPagedList<DemoDoan.Models.Location>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    int count = Model.PageNumber > 1 ? (Model.PageNumber - 1) * Model.PageSize + 1 : 1;
+
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink(StaticResource.Resource.UserAccounts_CreateNew, "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
+
+</p>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="pull-left">
+            @{
+                string pageof = StaticResource.Resource.General_PageOf.Replace("{0}", (Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber).ToString()).Replace("{1}", Model.PageCount.ToString());
+                @pageof;
+            }
+
+        </div>
+        <div class="pull-right">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }), new PagedListRenderOptions
+            {
+                 MaximumPageNumbersToDisplay = 5,
+                LinkToFirstPageFormat = StaticResource.Resource.General_First,
+                LinkToPreviousPageFormat = StaticResource.Resource.General_Previous,
+                LinkToNextPageFormat = StaticResource.Resource.General_Next,
+                LinkToLastPageFormat = StaticResource.Resource.General_Last,
+                UlElementClasses = new[] { "pagination" },
+                LiElementClasses = new[] { "page-item" }
+
+            })
+        </div>
+    </div>
+</div>
+<table class="table table-bordered">
+    <tr class="text-center">
+        <th>@StaticResource.Resource.General_No</th>
+        <th>
+            @StaticResource.Resource.Location_Content
+
+        </th>
+        <th>
+            @StaticResource.Resource.General_Language
+        </th>
+        <th>Option</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="text-center">
+            <td>@count</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LanguageID)
+            </td>
+            <td>
+                @Html.ActionLink(StaticResource.Resource.Record_Edit, "Edit", new { id = item.Number }, htmlAttributes: new { @class = "btn btn-primary btn-sm" }) |
+                @Html.ActionLink(StaticResource.Resource.Record_Delete, "Delete", new { id = item.Number }, htmlAttributes: new { @class = "btn btn-danger btn-sm deleteLocation" })
+            </td>
+        </tr>
+        count++;
+    }
+
+</table>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="pull-left">
+            @{
+                @pageof;
+            }
+
+        </div>
+        <div class="pull-right">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }), new PagedListRenderOptions
+            {
+                 MaximumPageNumbersToDisplay = 5,
+                LinkToFirstPageFormat = StaticResource.Resource.General_First,
+                LinkToPreviousPageFormat = StaticResource.Resource.General_Previous,
+                LinkToNextPageFormat = StaticResource.Resource.General_Next,
+                LinkToLastPageFormat = StaticResource.Resource.General_Last,
+                UlElementClasses = new[] { "pagination" },
+                LiElementClasses = new[] { "page-item" }
+
+            })
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(function () {
+            $('.deleteLocation').unbind().on('click', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        $.post($(this).attr('href'))
+                            .done(function (res) {
+                                if (res.status) {
+                                    window.location.href = res.url;
+                                } else {
+                                    Toast.fire({
+                                        type: 'error',
+                                        title: 'Delete failed!'
+                                    })
+                                }
+
+
+                            })
+
+                    }
+                });
+            })
+        });
+    </script>
+}

@@ -1,0 +1,393 @@
+E:\Demo2\DemoDoan\DemoDoan\bin\DemoDoan.dll.config
+E:\Demo2\DemoDoan\DemoDoan\bin\DemoDoan.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\DemoDoan.pdb
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\csc.exe
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\csc.exe.config
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\csc.rsp
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\csi.exe
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\csi.exe.config
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\csi.rsp
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.AppContext.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Collections.Immutable.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Console.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.IO.Compression.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.IO.FileSystem.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.IO.Pipes.AccessControl.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.IO.Pipes.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Reflection.Metadata.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Security.AccessControl.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Security.Claims.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Security.Principal.Windows.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.ValueTuple.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Xml.XPath.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\vbc.exe
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\vbc.exe.config
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\vbc.rsp
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\VBCSCompiler.exe
+E:\Demo2\DemoDoan\DemoDoan\bin\roslyn\VBCSCompiler.exe.config
+E:\Demo2\DemoDoan\DemoDoan\bin\Antlr3.Runtime.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\EntityFramework.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\EntityFramework.SqlServer.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\Microsoft.Web.Infrastructure.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\Newtonsoft.Json.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.Helpers.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.Mvc.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.Optimization.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.Razor.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.WebPages.Deployment.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.WebPages.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.WebPages.Razor.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\WebGrease.dll
+E:\Demo2\DemoDoan\DemoDoan\bin\EntityFramework.xml
+E:\Demo2\DemoDoan\DemoDoan\bin\EntityFramework.SqlServer.xml
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.Helpers.xml
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.Mvc.xml
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.Optimization.xml
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.Razor.xml
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.WebPages.xml
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.WebPages.Deployment.xml
+E:\Demo2\DemoDoan\DemoDoan\bin\System.Web.WebPages.Razor.xml
+E:\Demo2\DemoDoan\DemoDoan\bin\Newtonsoft.Json.xml
+E:\Demo2\DemoDoan\DemoDoan\bin\Antlr3.Runtime.pdb
+E:\Demo2\DemoDoan\DemoDoan\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Demo2\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csprojAssemblyReference.cache
+E:\Demo2\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.CoreCompileInputs.cache
+E:\Demo2\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.CopyComplete
+E:\Demo2\DemoDoan\DemoDoan\obj\Debug\DemoDoan.dll
+E:\Demo2\DemoDoan\DemoDoan\obj\Debug\DemoDoan.pdb
+E:\Demo2\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.InitialDB.resources
+E:\Demo2\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.GenerateResource.cache
+E:\Demo2\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.Record.resources
+E:\Demo2\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version1.resources
+D:\thuctap\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csprojAssemblyReference.cache
+D:\thuctap\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.InitialDB.resources
+D:\thuctap\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.Record.resources
+D:\thuctap\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version1.resources
+D:\thuctap\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.GenerateResource.cache
+D:\thuctap\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.CoreCompileInputs.cache
+D:\thuctap\DemoDoan\DemoDoan\obj\Debug\DemoDoan.dll
+D:\thuctap\DemoDoan\DemoDoan\obj\Debug\DemoDoan.pdb
+E:\Demo2\zip\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csprojAssemblyReference.cache
+E:\Demo2\zip\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.CoreCompileInputs.cache
+E:\Demo2\zip\DemoDoan\DemoDoan\obj\Debug\DemoDoan.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\obj\Debug\DemoDoan.pdb
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\DemoDoan.dll.config
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\DemoDoan.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\DemoDoan.pdb
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\csc.exe
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\csc.exe.config
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\csc.rsp
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\csi.exe
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\csi.exe.config
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\csi.rsp
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.AppContext.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Collections.Immutable.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Console.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.IO.Compression.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.IO.FileSystem.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.IO.Pipes.AccessControl.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.IO.Pipes.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Reflection.Metadata.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Security.AccessControl.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Security.Claims.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Security.Principal.Windows.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.ValueTuple.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Xml.XPath.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\vbc.exe
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\vbc.exe.config
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\vbc.rsp
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\VBCSCompiler.exe
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\roslyn\VBCSCompiler.exe.config
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\Antlr3.Runtime.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\EntityFramework.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\EntityFramework.SqlServer.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\Microsoft.Web.Infrastructure.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\Newtonsoft.Json.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.Helpers.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.Mvc.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.Optimization.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.Razor.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.WebPages.Deployment.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.WebPages.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.WebPages.Razor.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\WebGrease.dll
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\EntityFramework.xml
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\EntityFramework.SqlServer.xml
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.Helpers.xml
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.Mvc.xml
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.Optimization.xml
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.Razor.xml
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.WebPages.xml
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.WebPages.Deployment.xml
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\System.Web.WebPages.Razor.xml
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\Newtonsoft.Json.xml
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\Antlr3.Runtime.pdb
+E:\Demo2\zip\DemoDoan\DemoDoan\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Demo2\zip\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.CopyComplete
+E:\Demo2\zip\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.InitialDB.resources
+E:\Demo2\zip\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.GenerateResource.cache
+E:\Demo2\zip\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.Version1.resources
+E:\Demo2\zip\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.Version2.resources
+E:\Demo2\zip\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.Version3.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\DemoDoan.dll.config
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\DemoDoan.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\DemoDoan.pdb
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\csc.exe
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\csc.exe.config
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\csc.rsp
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\csi.exe
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\csi.exe.config
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\csi.rsp
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\Microsoft.Managed.Core.targets
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.AppContext.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Collections.Immutable.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Console.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.IO.Compression.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.IO.FileSystem.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.IO.Pipes.AccessControl.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.IO.Pipes.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Reflection.Metadata.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Security.AccessControl.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Security.Claims.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Security.Principal.Windows.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Text.Encoding.CodePages.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.ValueTuple.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Xml.ReaderWriter.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Xml.XmlDocument.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Xml.XPath.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\System.Xml.XPath.XDocument.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\vbc.exe
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\vbc.exe.config
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\vbc.rsp
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\VBCSCompiler.exe
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\roslyn\VBCSCompiler.exe.config
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\Antlr3.Runtime.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\EntityFramework.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\EntityFramework.SqlServer.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\Microsoft.Web.Infrastructure.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\Newtonsoft.Json.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.Helpers.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.Mvc.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.Optimization.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.Razor.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.WebPages.Deployment.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.WebPages.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.WebPages.Razor.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\WebGrease.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\EntityFramework.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\EntityFramework.SqlServer.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.Helpers.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.Mvc.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.Optimization.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.Razor.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.WebPages.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.WebPages.Deployment.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\System.Web.WebPages.Razor.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\Newtonsoft.Json.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\Antlr3.Runtime.pdb
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csprojAssemblyReference.cache
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.CoreCompileInputs.cache
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.CopyComplete
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.pdb
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\StaticResource.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\StaticResource.pdb
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\vi\StaticResource.resources.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version1.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.GenerateResource.cache
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version11.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version12.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version13.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version14.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version15.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version16.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version17.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version101.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version102.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version103.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version104.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version105.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\PagedList.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\PagedList.Mvc.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\PagedList.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\PagedList.Mvc.xml
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\X.PagedList.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\X.PagedList.Mvc.Bootstrap4.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\bin\X.PagedList.Mvc.dll
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version106.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version107.resources
+E:\Demo2\Todo\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version108.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\DemoDoan.dll.config
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\DemoDoan.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\DemoDoan.pdb
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\csc.exe
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\csc.exe.config
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\csc.rsp
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\csi.exe
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\csi.exe.config
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\csi.rsp
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\Microsoft.Managed.Core.targets
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.AppContext.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Collections.Immutable.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Console.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.IO.Compression.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.IO.FileSystem.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.IO.Pipes.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Reflection.Metadata.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Security.AccessControl.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Security.Claims.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Security.Principal.Windows.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.ValueTuple.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Xml.XmlDocument.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Xml.XPath.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\vbc.exe
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\vbc.exe.config
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\vbc.rsp
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\VBCSCompiler.exe
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\roslyn\VBCSCompiler.exe.config
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\Antlr3.Runtime.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\EntityFramework.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\EntityFramework.SqlServer.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\Microsoft.Web.Infrastructure.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\Newtonsoft.Json.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\PagedList.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\PagedList.Mvc.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\StaticResource.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.Helpers.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.Mvc.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.Optimization.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.Razor.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.WebPages.Deployment.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.WebPages.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.WebPages.Razor.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\WebGrease.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\X.PagedList.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\X.PagedList.Mvc.Bootstrap4.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\X.PagedList.Mvc.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\StaticResource.pdb
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\EntityFramework.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\EntityFramework.SqlServer.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\PagedList.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\PagedList.Mvc.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.Helpers.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.Mvc.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.Optimization.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.Razor.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.WebPages.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.WebPages.Deployment.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\System.Web.WebPages.Razor.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\Newtonsoft.Json.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\Antlr3.Runtime.pdb
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\bin\vi\StaticResource.resources.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csprojAssemblyReference.cache
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version1.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version11.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version12.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version13.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version14.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version15.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version16.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version17.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version101.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version102.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version103.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version104.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version105.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version106.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version107.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version108.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.GenerateResource.cache
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.csproj.CopyComplete
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.dll
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.pdb
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version109.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version110.resources
+D:\0.To Do List\TrackingSystem\DemoDoan\DemoDoan\obj\Debug\DemoDoan.Migrations.version111.resources

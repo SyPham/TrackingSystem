@@ -1,0 +1,49 @@
+﻿@model DemoDoan.Models.ColorCode
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <h2>@StaticResource.Resource.UserAccounts_CreateNew</h2>
+            <h4>ColorCode</h4>
+        </div>
+        <div class="col-lg-12">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Code)
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name)
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="form-group">
+                <input type="submit" StaticResource.Resource.General_Create class="btn btn-default" />
+            </div>
+        </div>
+        <div class="col-lg-12">
+            @Html.ActionLink(StaticResource.Resource.General_BackToList, "Index", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
+        </div>
+    </div>
+}
+
+

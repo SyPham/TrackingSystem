@@ -1,0 +1,56 @@
+﻿@model DemoDoan.Models.Department
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+     var languages = (List<DemoDoan.Models.Language>)ViewBag.Languages;
+      var LangID = Session[DemoDoan.ViewModel.UserVM.CurrentCulture].ToString();
+}
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row" id="department">
+        <div class="col-lg-12">
+            <h2>@StaticResource.Resource.UserAccounts_CreateNew</h2>
+            <h4>Department</h4>
+
+        </div>
+        <div class="col-lg-12">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name)
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.LanguageID)
+                    @Html.DropDownListFor(model => model.LanguageID, new SelectList(languages, "LanguageID", "Name"), "- Please Select -", new { @class = "form-control lang" })
+                    @Html.ValidationMessageFor(model => model.LanguageID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                    <input type="submit" StaticResource.Resource.General_Create class="btn btn-default" />
+            </div>
+        </div>
+        <div class="col-lg-12">
+                @Html.ActionLink(StaticResource.Resource.General_BackToList,"Index", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
+
+        </div>
+    </div>
+        }
+
+
+        @section Scripts{
+
+            <script>
+        $('#department .lang').val('@LangID')
+            </script>
+        }

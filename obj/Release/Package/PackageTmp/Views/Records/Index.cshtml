@@ -1,0 +1,1388 @@
+﻿@using StaticResource;
+@model IEnumerable<DemoDoan.Models.ColorCode>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="title">
+            <section id="records">
+            </section>
+        </div>
+    </div>
+    @*scrollbar at the bottom boc boi 1 div co id="" va goi trong ham event*@
+    <div id="wrapper">
+        <div class="col-md-12">
+            <div class="tile">
+                <h3 class="tile-title">@*Document List*@  @Resource.Record_Document_List </h3>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-sm btn-primary mr-1 " data-toggle="modal" @(user.RoleID == 1 ? "data-target=#myModal" : "data-target=#myuserModal")>
+                        @*Add New*@ @Resource.Record_Add_New
+                    </button><br />
+                    <button type="button" class="btn btn-sm btn-primary mr-1" style="@(user.RoleID == 1 ? "visibility: visible;" : "visibility: hidden")" id="editButton" data-toggle="modal" @(user.RoleID == 1 ? "data-target=#myModalAdmin" : "")>
+                        @*Edit*@  @Resource.Record_Edit
+                    </button><br />
+                    <button type="button" class="btn btn-sm btn-primary mr-1" style="@(user.RoleID == 1 ? "visibility: visible;" : "visibility: hidden")" id="deleteButton" @(user.RoleID == 1 ? "data-target=#myModalAdmin" : "")>
+                        @*Delete*@  @Resource.Record_Delete
+                    </button><br />
+                    @*<a class="btn btn-sm btn-primary mr-1" href="/Status/Index" style="@(user.RoleID == 1 ? "visibility: visible;" : "visibility: hidden")" id="editStatus">
+
+                @Resource.Record_EditStatus
+            </a>*@
+                </div>
+                <div id="sampleTable_filter" class="dataTables_filter">
+                    @*autocomplete="off" ẩn giá trị đã search rồi*@
+                    <label>
+                        @*Search*@ @Resource.Record_Search:<input type="search" class="form-control form-control-sm " autocomplete="off" id="search" placeholder="" aria-controls="sampleTable">
+
+                    </label>
+
+                </div>
+                <p class="bs-component">
+                    @foreach (var item in Model)
+                    {
+                        <button class="btn @item.CssCode btn-sm colorCodeButton" data-id="@item.ID" type="button">@item.Name</button>
+                    }
+                    @*<button class="btn btn-outline-secondary btn-sm" type="button">White</button>
+                    <button class="btn btn-outline-warning btn-sm" type="button">Yellow</button>
+                    <button class="btn btn-outline-danger btn-sm" type="button">Red</button>*@
+                </p>
+                @*inputshowid*@
+
+                <input class="d-none listInput" type="text" id="list-id" />
+
+                <div class="table-responsive">
+                    <table class="table" id="recordTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @*Checkbox*@
+                                    @Resource.Record_Checkbox
+                                </th>
+                                <th>
+                                    @*TrackingID*@
+                                    @Resource.Record_TrackingID
+                                </th>
+                                <th>
+                                    <div class="btn-group">
+                                        <div>
+                                            @*CreatedDate*@
+                                            @Resource.Record_CreatedDate
+                                        </div>
+                                        <div>
+                                            <i class="fa fa-sort-alpha-asc sortCreatedDate" style="cursor:pointer" aria-hidden="true"></i>
+                                            <i class="fa fa-sort-alpha-desc sortdescCreatedDate d-none" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+
+                                </th>
+                                <th>
+                                    @*DocumentCategory*@
+                                    @Resource.Record_DocumentCategory
+                                </th>
+                                <th>
+                                    @*ApprovalSheetCategory*@
+                                    @Resource.Record_ApprovalSheetCategory
+                                </th>
+                                <th>
+                                    @Resource.Record_Title
+                                </th>
+                                <th>
+                                    @*Description*@
+                                    @Resource.Record_Description
+                                </th>
+                                <th>
+                                    <div class="btn-group">
+                                        <div>
+                                            @*Status*@
+                                            @Resource.Record_Status
+                                        </div>
+                                        <div>
+                                            <i class="fa fa-sort-alpha-asc sortStatus" aria-hidden="true"></i>
+                                            <i class="fa fa-sort-alpha-desc sortdescStatus d-none" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th>
+                                    @Resource.Record_Location
+                                </th>
+                                <th>
+                                    <div class="btn-group">
+                                        <div>
+                                            @*Department*@
+                                            @Resource.Record_Department
+                                        </div>
+                                        <div>
+                                            <i class="fa fa-sort-alpha-asc sortDepartment" aria-hidden="true"></i>
+                                            <i class="fa fa-sort-alpha-desc sortdescDepartment d-none" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th>
+                                    @Resource.Record_Team
+                                <th>
+                                    @Resource.Record_Username
+                                </th>
+                                <th>
+                                    @*Modifieddate*@
+                                    @Resource.Record_Modifieddate
+                                </th>
+                                <th>
+                                    @*Options*@
+                                    @Resource.Record_Options
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody" id="tblRecords">
+                        </tbody>
+                    </table>
+                    <hr />
+                    <ul id="pagination" class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#">«</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="exampleModalLiveLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="CategoryID">Document Category</label>
+                            <select class="form-control CategoryID" id="CategoryID">
+                                @*MentionAll:ID & class *@
+                                <option>Choose Document Category</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="SubCategoryID">ApprovalSheet</label>
+                            <select class="form-control SubCategoryID" id="SubCategoryID">
+                                <option>Choose ApprovalSheet</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="Title">Title</label>
+                            <input type="text" class="form-control Title" id="Title" placeholder=" " />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <input type="text" class="form-control Description" id="Description" placeholder=" " />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="StatusID"> Status</label>
+                            <select class="form-control StatusID" id="StatusID">
+                                <option>Choose Status</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="LocationID">Location </label>
+                            <select class="form-control LocationID" id="LocationID">
+                                <option>Choose Location</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="form-group">
+                            <label for="colorCode">Color Code</label>
+
+                            <select class="form-control colorCode">
+                                <option>Choose Color Code</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveButton">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myuserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="exampleModalLiveLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="CategoryID">Document Category</label>
+                            <select class="form-control CategoryID" id="CategoryID">
+                                <option>Choose Document Category</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="SubCategoryID">Approval Sheet</label>
+                            <select class="form-control SubCategoryID" id="SubCategoryID">
+                                <option>Choose Approval Sheet</option>
+                            </select>
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="Title">Title</label>
+                            <input type="text" class="form-control Title" id="Title" placeholder=" " />
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <input type="text" class="form-control Description" id="Description" placeholder=" " />
+                        </div>
+                        <div class="form-group">
+                            <label for="colorCode">Color Code</label>
+
+                            <select class="form-control colorCode">
+                                <option>Choose Color Code</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary saverecorduserButton" id="saverecorduserButton">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModalAdmin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">Edit</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="StatusID"> Status</label>
+                    <select class="form-control StatusID" id="StatusID">
+                        <option>Choose Status</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+
+        $(function () {
+            recordsController.init();
+        });
+        var a = '';
+
+        //pageSize , pageIndex
+        var config = {
+            pageSize: 10,
+            pageIndex: 1
+        };
+        var recordsController = {
+            init() {
+                //loadData, load su kien, lay het tat ca cai da chon
+                recordsController.loadData();
+                recordsController.registerEvent();
+                recordsController.getAllSelect();
+            },
+
+            registerEvent() {
+                //scrollbar at the bottom
+                 $("#wrapper").scrollLeft(function(){
+
+                 });
+                $('.colorCodeButton').off('click').on('click', function () {
+                    recordsController.loadData("", "", "", $(this).data('id'));
+                })
+                //sort createddate
+                $('#recordTable .sortCreatedDate').off('click').on('click', function () {
+                    recordsController.loadData("","CREATEDDATE","ASC");
+                    $('#recordTable .sortdescCreatedDate').removeClass('d-none').addClass('d-block');
+                    $(this).removeClass('d-block').addClass('d-none');
+
+
+                });
+                $('#recordTable .sortdescCreatedDate').off('click').on('click', function () {
+                     recordsController.loadData("","CREATEDDATE","DESC");
+
+                    $('#recordTable .sortCreatedDate').removeClass('d-none').addClass('d-block');
+                    $(this).removeClass('d-block').addClass('d-none');
+                });
+
+                //sort status
+                 $('#recordTable .sortStatus').off('click').on('click', function () {
+                    $('#recordTable .sortdescStatus').removeClass('d-none').addClass('d-block');
+                    $(this).removeClass('d-block').addClass('d-none');
+                    recordsController.loadData("","STATUS","ASC");
+
+                });
+                $('#recordTable .sortdescStatus').off('click').on('click', function () {
+                    $('#recordTable .sortStatus').removeClass('d-none').addClass('d-block');
+                    $(this).removeClass('d-block').addClass('d-none');
+                     recordsController.loadData("","STATUS","DESC");
+                });
+
+                //sort department
+                $('#recordTable .sortDepartment').off('click').on('click', function () {
+                    $('#recordTable .sortdescDepartment').removeClass('d-none').addClass('d-block');
+                    $(this).removeClass('d-block').addClass('d-none');
+                    recordsController.loadData("","DEPARTMENT","ASC");
+
+                });
+                $('#recordTable .sortdescDepartment').off('click').on('click', function () {
+                    $('#recordTable .sortDepartment').removeClass('d-none').addClass('d-block');
+                    $(this).removeClass('d-block').addClass('d-none');
+                     recordsController.loadData("","DEPARTMENT","DESC");
+                });
+
+                //EditRange
+                //change: chon va doi (change)
+                 $('#myModalAdmin .StatusID').off('change').on('change', function () {
+
+                      let val = [];
+                      $('.recordCheckbox:checkbox:checked').each(function(i){
+                             val[i] = $(this).data('edit');
+                      });
+                     //kiem tra tra da chon o checkbox hay chua
+                     if (val.length === 0)
+                     {
+                         //Neu chua thi thong bao
+                        alert("Please select checkbox");
+                     }
+                     else
+                     {
+                         //Neu danh sach ID checkbox duoc chon
+                         let listID = val.join();
+                          //Va sua
+                         recordsController.editRange(listID);
+                    }
+                 });
+
+
+                //DeleteRange
+                //Gan su kien click de chay ham delete range, con khong co su kien nay thi ham do khong chay.
+                $('#deleteButton').off('click').on('click', function () {
+
+                      let val = [];
+                      $('.recordCheckbox:checkbox:checked').each(function(i){
+                             val[i] = $(this).data('edit');
+                      });
+                     //kiem tra tra da chon o checkbox hay chua
+                     if (val.length === 0)
+                     {
+                         //Neu chua thi thong bao
+                        alert("Please select checkbox");
+                     }
+                     else
+                     {
+                         //Neu danh sach ID checkbox duoc chon
+                         let listID = val.join();
+                          //Va xoa
+                         recordsController.deleteRange(listID);
+                    }
+                 });
+
+                //Add
+                $('#add').off('click').on('click', function () {
+
+                    //Khi click add thi goi ham add
+                    recordsController.add();
+
+                    //Add xong clear form
+                    recordsController.clearForm();
+
+                    //LoadData
+
+                    recordsController.loadData();
+                });
+
+                //Adduser
+                $('#adduser').off('click').on('click', function () {
+
+                    //Khi click add thi goi ham add
+                    recordsController.adduser();
+
+                    //Add xong clear form
+                    recordsController.clearForm();
+
+                    //LoadData
+                    recordsController.loadData();
+                });
+
+                //Lấy ra id
+                 $('#getById').off('click').on('click', function () {
+                    var Id = $(this).val();
+                    recordsController.getById(Id);
+                 });
+
+
+                //blur: click ra ngoai va luu
+                 $('#search').off('blur').on('blur', function () {
+
+
+                        //alert('You pressed enter!');
+                        $("#search").click();
+                        recordsController.loadData();
+
+
+                });
+
+                //su kien nhan enter
+                $('#search').off('keypress').on('keypress', function (e) {
+
+
+                     if(e.which == 13) {
+                        //alert('You pressed enter!');
+                        $("#search").click();
+                        recordsController.loadData();
+                    }
+
+
+                });
+
+                 $('.deleteButton').off('click').on('click', function () {
+
+                     var id = $(this).data("id");
+
+                    recordsController.delete(id);
+
+                 });
+
+                $('#recordTable .titleInput').off('blur').on('blur', function (e) {
+                    var code = e.keyCode || e.which;
+                     //if(code == 13) { //Enter keycode
+                         var id = $(this).parent().parent().data('id');
+                         var title = $(this).val();
+                        //Khi click eidt thi goi ham eidt
+                        recordsController.edit(id,title,"","","","","");
+                     //}
+
+                });
+
+                $('#recordTable .descriptionInput').off('blur').on('blur', function (e) {
+                    var code = e.keyCode || e.which;
+                     //if(code == 13) { //Enter keycode
+                         var id = $(this).parent().parent().data('id')
+                         var description = $(this).val();
+                        //Khi click eidt thi goi ham edit
+                        recordsController.edit(id,"",description,"","","","");
+                     //}
+
+                });
+
+                //$('#recordTable .statusSelect').off('change').on('change', function () {
+                //         var id = $(this).parent().parent().data('id');
+                //         var statusID = $(this).val();
+                //        //Khi click eidt thi goi ham edit
+                //        recordsController.edit(id,"","","","",statusID,"");
+
+                //    recordsController.getAllSelect();
+
+                //});
+
+                $('#recordTable .categoriesSelect').off('change').on('change', function () {
+                         var id = $(this).parent().parent().data('id');
+                         var categoryID = $(this).val();
+                        //Khi click eidt thi goi ham edit
+                        recordsController.edit(id,"","",categoryID,"","","");
+
+                });
+
+                $('#recordTable .subcategoriesSelect').off('change').on('change', function () {
+                         var id = $(this).parent().parent().data('id');
+                         var subcategoryID = $(this).val();
+                        //Khi click eidt thi goi ham edit
+                        recordsController.edit(id,"","","",subcategoryID,"","");
+
+                });
+
+                //$('#recordTable .locationSelect').off('change').on('change', function () {
+                //    var id = $(this).closest('tr').data('id');
+
+                //         var locationID = $(this).val();
+                //        //Khi click eidt thi goi ham eidt
+                //        recordsController.edit(id,"","","","","",locationID);
+
+                //});
+
+                $('#delete').off('click').on('click', function () {
+
+                    //Xóa
+                    recordsController.delete();
+
+                    //LoadData
+
+                    recordsController.loadData();
+                });
+
+                $('#saveButton').off('click').on('click', function () {
+                    //Add
+                    recordsController.add();
+                });
+
+                $('#saverecorduserButton').off('click').on('click', function () {
+                     //Adduser
+                    recordsController.adduser();
+                });
+
+                /////////////////////
+                //Them lai vao bang
+                //tao mot cai su dung nhieu cai
+                // doan nay thay the cho ham registerEventListTable() {};
+
+                $('#tblRecords .locationSelect').on('change', function (e) {
+                    //alert($(this).closest('tr').find('.recordCheckbox:checkbox').not(':not(:checked)'))
+                    if ($(this).closest('tr').find('.recordCheckbox:checkbox').prop('checked') === false)
+                    {
+                        var id = $(this).closest('tr').data('id');
+                         var locationID = $(this).val();
+                        //Khi click eidt thi goi ham eidt
+                        recordsController.edit(id,"","","","","",locationID);
+                    }
+                    else
+                    {
+
+                        var selected = $(e.target).val();
+                        var id = $(this).closest("tr").data("id");
+                        var valTotal = $("#list-id").val() ; //==""
+                        if (valTotal.indexOf(id) > -1)
+                        {
+                            valTotal = valTotal.slice(0, valTotal.length - 1);
+                            let arrTotal = valTotal.split("_");
+
+                            //Lay id o data-id va tim vi tri locationSelect
+                            arrTotal.map(id => {
+                                $("tr[data-id=" + id + "]").find(".locationSelect").val(selected);
+                            });
+                        }
+
+                        //Kiem tra
+                        let val = [];
+                        $('.recordCheckbox:checkbox:checked').each(function (i) {
+                            val[i] = $(this).data('edit');
+                        });
+
+                        //kiem tra tra da chon o checkbox hay chua
+                        if (val.length === 0)
+                        {
+                            //Neu chua thi thong bao
+                            alert("Please select checkbox");
+                        }
+                        else
+                        {
+                            //Neu danh sach ID checkbox duoc chon
+                            let listID = val.join();
+                            //Va sua
+                            recordsController.locationEditRange(listID);
+
+                            //Edit xong thi load lai checkbox ( bo dau check)
+                            $(":checked").each(function () {
+                               var a= $(this).prop('checked', false);
+                            });
+
+                        }
+                    }
+
+                });
+
+
+                 $('#recordTable .statusSelect').off('change').on('change', function (e) {
+                        //alert($(this).closest('tr').find('.recordCheckbox:checkbox').not(':not(:checked)'))
+                    if ($(this).closest('tr').find('.recordCheckbox:checkbox').prop('checked') === false)
+                    {
+                        var id = $(this).closest('tr').data('id');
+                         var statusID = $(this).val();
+                        //Khi click eidt thi goi ham eidt
+                        recordsController.edit(id,"","","","","",statusID);
+                    }
+                    else
+                    {
+
+                        var selected = $(e.target).val();
+                        var id = $(this).closest("tr").data("id");
+                        var valTotal = $("#list-id").val() ; //==""
+                        if (valTotal.indexOf(id) > -1)
+                        {
+                            valTotal = valTotal.slice(0, valTotal.length - 1);
+                            let arrTotal = valTotal.split("_");
+
+                            //Lay id o data-id va tim vi tri locationSelect
+                            arrTotal.map(id => {
+                                $("tr[data-id=" + id + "]").find(".statusSelect").val(selected);
+                            });
+                        }
+
+                        //Kiem tra
+                        let val = [];
+                        $('.recordCheckbox:checkbox:checked').each(function (i) {
+                            val[i] = $(this).data('edit');
+                        });
+
+                        //kiem tra tra da chon o checkbox hay chua
+                        if (val.length === 0)
+                        {
+                            //Neu chua thi thong bao
+                            alert("Please select checkbox");
+                        }
+                        else
+                        {
+                            //Neu danh sach ID checkbox duoc chon
+                            let listID = val.join();
+                            //Va sua
+                            debugger
+                            recordsController.editRange(listID);
+
+                            //Edit xong thi load lai checkbox ( bo dau check)
+                            $(":checked").each(function () {
+                               var a= $(this).prop('checked', false);
+                            });
+
+                        }
+                    }
+
+                });
+
+
+
+                //show ra de thay id cua tung o checkbox
+                $('#tblRecords .recordCheckbox').on('change', function (e) {
+                    //lay id cua cai dong ma chua recordCheckbox
+                    var id = $(this).closest("tr").data("id");
+
+
+                    if (this.checked) {
+                        //Khai bao 1 bien de chua list id
+                        let valOld = $("#list-id").val(); //=== ""
+                        valOld += id + "_"; //100_
+                        $("#list-id").val(valOld);
+
+                    }
+                    else {
+                        let valOld = $("#list-id").val();
+                        valOld = valOld.replace(id+"_", "");
+                        $("#list-id").val(valOld);
+                    }
+
+                });
+                 ///////////////////
+                //tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+            },
+
+            //Them lai vao bang
+            //tao mot cai su dung nhieu cai
+            //Ham nay chi tach ra, phai gop lai trong registerEvent.
+            //registerEventListTable() {};
+
+            loadData(changePageSize,sort="",type="",colorCodeID=0) {
+
+                var self = this;
+                //Search
+                var search = $('#search').val();
+                $.ajax({
+                    url: '/Records/LoadData',
+                    type: 'GET',
+                    data: {
+                        search: search,
+                        colorCodeID:colorCodeID,
+                        page: config.pageIndex,
+                        pageSize: config.pageSize,
+                        sort,
+                        type
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response);
+                        if (response.status) {
+                            ///Lấy ra
+                            var dataRecords = response.data,
+                                status = response.listStatus,
+                                locations = response.listLocations,
+                                categories = response.listCategories,
+                                subCategories = response.listSubCategories,
+                                colorCodes = response.listColorCodes,
+                                pageSize = response.pageSize,
+                                page = response.page;
+                            ///
+                            var role = response.role;
+                            var html = '',
+                                optionStatus,
+                                optionLocations,
+                                optionCategories,
+                                optionColorCodes,
+                                optionSubCategories = '';
+                            //Select Status
+                            $.each(status, function (i, item) {
+                               optionStatus+= `<option value="${item.StatusID}">${item.Name}</option>`
+                            })
+                            //Select category
+                             $.each(categories, function (i, item) {
+                               optionCategories+= `<option value="${item.CategoryID}">${item.Name}</option>`
+                             })
+
+                            //Select subcategory
+                             $.each(subCategories, function (i, item) {
+                               optionSubCategories+= `<option value="${item.SubCategoryID}">${item.Name}</option>`
+                             })
+
+                            //Select subcategory
+                             $.each(locations, function (i, item) {
+                               optionLocations+= `<option value="${item.Number}">${item.Content}</option>`
+                             })
+
+                              //Select subcategory
+                             $.each(optionColorCodes, function (i, item) {
+                               optionColorCodes+= `<option value="${item.ID}">${item.Name}</option>`
+                             })
+                            //var count = page;
+                            // if (page !== 1)
+                            //        count = (pageSize + 1);
+                            var template = ``;
+
+                            if (role !== 1) {
+                                //data-edit="{{RecordID}}" edit chinh la id cua RecordID #deleteButton #myModalAdmin .StatusID
+                                //hien thi noi dung khi tro con chuot vao:
+                                //<input  value="{{Description}}" data-toggle="tooltip" title="{{Description}}" class="descriptionInput strip" type="text">
+                                template = `<tr class="{{CheckRoleID}}" data-id="{{RecordID}}">
+                                            <td>
+                                                <div class="pretty p-default p-smooth p-bigger">
+                                                    <input class="recordCheckbox" data-edit="{{RecordID}}" name="recordCheckbox" type="checkbox" />
+                                                    <div class="state p-success-o">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                               <span class="{{ColorCode}}"> {{Tracking}}</span>
+                                            </td>
+                                            <td>
+                                                {{CreatedDate}}
+                                            </td>
+                                            <td>
+                                                <select class="categoriesSelect strip"><option value=" ">.: Choose categories :.</option>${optionCategories}</select>
+                                            </td>
+                                            <td>
+                                                <select class="subcategoriesSelect strip"><option value=" ">.: Choose subcategories :.</option>${optionSubCategories}</select>
+                                            </td>
+                                            <td>
+                                                 <input  value="{{Title}}" class="titleInput strip" type="text">
+                                            </td>
+                                            <td>
+                                                <input  value="{{Description}}" data-toggle="tooltip" title="{{Description}}" class="descriptionInput strip" type="text">
+                                            </td>
+                                            <td>
+                                               <select disabled class="statusSelect strip"><option value=" ">.: Choose status :.</option> ${optionStatus}</select>
+                                            </td>
+                                            <td>
+                                                <select disabled class="locationSelect strip"><option value=" ">.: Choose location :.</option>${optionLocations}</select>
+                                            </td>
+                                            <td>
+                                                {{Department}}
+                                            </td>
+                                            <td>
+                                                {{Team}}
+                                            </td>
+                                            <td>
+                                                {{Username}}
+                                            </td>
+                                            <td>
+                                                {{Modifieddate}}
+                                            </td>
+                                             <td>
+                                                <button data-id="{{RecordID}}" class="btn btn-danger btn-sm deleteButton">Delete</button>
+                                            </td>
+                                        </tr>`;
+                            }
+                            else
+                            {
+                                template = `<tr class="{{CheckRoleID}}" data-id="{{RecordID}}">
+                                            <td>
+                                                <div class="pretty p-default p-smooth p-bigger">
+                                                    <input class="recordCheckbox" data-edit="{{RecordID}}" name="recordCheckbox" type="checkbox" />
+                                                    <div class="state p-success-o">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                               <span class="{{ColorCode}}"> {{Tracking}}</span>
+                                            </td>
+                                            <td>
+                                                {{CreatedDate}}
+                                            </td>
+                                            <td>
+                                                <select class="categoriesSelect strip"><option value=" ">.: Choose categories :.</option>${optionCategories}</select>
+                                            </td>
+                                            <td >
+                                                <select class="subcategoriesSelect strip"><option value=" ">.: Choose subcategories :.</option>${optionSubCategories}</select>
+                                            </td>
+                                            <td>
+
+                                                 <input  value="{{Title}}" class="titleInput strip" type="text">
+                                            </td>
+                                            <td>
+                                                 <input  value="{{Description}}" data-toggle="tooltip" title="{{Description}}" class="descriptionInput strip" type="text">
+
+                                            </td>
+                                            <td>
+                                               <select class="statusSelect strip"><option value=" ">.: Choose status :.</option> ${optionStatus}</select>
+                                            </td>
+                                            <td>
+                                                <select class="locationSelect strip"><option value=" ">.: Choose location :.</option>${optionLocations}</select>
+                                            </td>
+                                            <td>
+                                                {{Department}}
+                                            </td>
+                                            <td>
+                                                {{Team}}
+                                            </td>
+                                            <td>
+                                                {{Username}}
+                                            </td>
+                                            <td>
+                                                {{Modifieddate}}
+                                            </td>
+                                            <td>
+                                                <button data-id="{{RecordID}}" class="btn btn-danger btn-sm deleteButton">Delete</button>
+                                            </td>
+                                        </tr>`;
+                            }
+
+              
+                            //Load het danh sach
+                            $.each(dataRecords, function (i, item) {
+
+                                console.log(item.UserID);
+
+                                html += Mustache.render(template, {
+                                    //kiem tra CheckRoleID
+                                    //Neu user dang dang nhap la 4 thi khong the sua cua cac user khac "Disabled"
+                                    CheckRoleID:  @user.RoleID === 1 ?"": (item.UserID === @user.UserID)?"" : "Disabled",
+                                    RecordID:item.RecordID,
+                                    Tracking: item.TrackingID,
+                                    CreatedDate: recordsController.convertDateJson(item.CreatedDate),
+                                    //CategoryID:DocumentCategory,
+                                    //ApprovalSheetCategory: item.ApprovalSheetCategory,
+                                    Title: item.Title,
+                                    Description: item.Description,
+                                   //StatusID: `<option value="${item.StatusID}">${item.StatusName}</option>`,
+                                    //Location: item.Location,
+                                    Department: item.Department,
+                                    Team: item.TeamName,
+                                    Username: item.Username,
+                                    Modifieddate: recordsController.convertDateJson(item.Modifieddate),
+                                    ColorCode : item.ColorCode
+                                });
+                            });
+                            //Load xong danh sach
+                            $('#tblRecords').empty();
+                            $('#tblRecords').html(html);
+
+                            //Load du lieu hoan tat
+                            // load status
+
+                            //load categories
+                            //recordsController.getAllCategories();
+                             //recordsController.getAllStatus();
+                            $.each(dataRecords, function (i, item) {
+
+                                $(`#tblRecords tr:eq(${i}) .statusSelect`).val(item.StatusID);
+                                $(`#tblRecords tr:eq(${i}) .categoriesSelect`).val(item.CategoryID);
+                                $(`#tblRecords tr:eq(${i}) .subcategoriesSelect`).val(item.SubCategoryID);
+                                $(`#tblRecords tr:eq(${i}) .locationSelect`).val(item.LocationID);
+                            });
+                            recordsController.paging(response.total, function () {
+                                recordsController.loadData();
+                            }, changePageSize);
+
+                            //gan su kien
+                            recordsController.registerEvent();
+                            //recordsController.registerEventListTable();
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }, //them sort, type
+
+            //pagesize
+            paging(totalRow, callback, changePageSize) {
+                var totalPage = Math.ceil(totalRow / config.pageSize);
+
+                //Unbind pagination if it existed or click change pagesize
+                if ($('#pagination a').length === 0 || changePageSize === true) {
+                    $('#pagination').empty();
+                    $('#pagination').removeData("twbs-pagination");
+                    $('#pagination').unbind("page");
+                }
+
+                $('#pagination').twbsPagination({
+                    totalPages: totalPage === 0 ? 1 : totalPage,
+                    first: "First",
+                    next: "Next",
+                    last: "Last",
+                    prev: "Previous",
+                    visiblePages: 10,
+                    onPageClick: function (event, page) {
+                        config.pageIndex = page;
+                        setTimeout(callback, 500);
+                    }
+                });
+            },
+
+            add() {
+                var res = recordsController.validate();
+            if (res == false) {
+                return false;
+            }
+                var record = {
+                //CategoryID: $('#myModal .CategoryID').val(), khai bao quan he cha con parent - child
+                CategoryID: $('#myModal .CategoryID').val(),
+                SubCategoryID: $('#myModal .SubCategoryID').val(),
+                Title: $('#myModal .Title').val(),
+                Description: $('#myModal .Description').val(),
+                StatusID: $('#myModal .StatusID').val(),
+                LocationID: $('#myModal .LocationID').val(),
+                ColorCodeID: Number($('#myModal .colorCode').val())
+                };
+                //cach 1
+                //var data = { record: mObj };
+            $.ajax({
+                url: "/Records/Add",
+                //Cach1: data:data,
+                data: record,
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+
+                    //Neu bang true thi an model
+                    if (res.status == true) {
+                        //Clear form
+                        recordsController.clearForm();
+                        //Dong modal
+                        $('#myModal').modal('hide');
+                        //Load data
+                        recordsController.loadData();
+                        recordsController.getAllSelect();
+                    }
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+            },
+
+            adduser() {
+                var res = recordsController.validateuser();
+            if (res == false) {
+                return false;
+            }
+            var record = {
+                CategoryID: $('#myuserModal .CategoryID').val(),
+                SubCategoryID: $('#myuserModal .SubCategoryID').val(),
+                Title: $('#myuserModal .Title').val(),
+                Description: $('#myuserModal .Description').val(),
+                 ColorCodeID: Number($('#myuserModal .colorCode').val())
+                };
+                //cach 1
+                //var data = { record: mObj };
+            $.ajax({
+                url: "/Records/Adduser",
+                //Cach1: data:data,
+                data: record,
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (res) {
+
+                    //Neu bang true thi an model
+                    if (res.status == true) {
+                        //Clear form
+                        recordsController.clearForm();
+                        //Dong modal
+                        $('#myuserModal').modal('hide');
+                        //Load data
+                        recordsController.loadData();
+                        recordsController.getAllSelect();
+                    }
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+            },
+
+            delete(id) {
+
+                $.ajax({
+                    url: "/Records/Delete",
+                    data: {id: JSON.stringify(id)}, //Lấy id
+                type: "POST",
+                dataType: "json",
+                success: function (res) {
+                    if (res.status) {
+                         //LoadData
+                        recordsController.loadData();
+                    }
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+            },
+
+            deleteRange(listID) {
+                $.ajax({
+                    url: "/Records/DeleteRange",
+                    data: { listID: listID }, //Listid
+                    type: "POST",
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.status) {
+
+                            //LoadData
+                            recordsController.loadData();
+                        }
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            },
+
+            editRange(listID) {
+                var StatusID = $('#tblRecords .statusSelect').val(); //$('#myModalAdmin .StatusID').val(), khai bao quan he cha con parent - child
+                $.ajax({
+                    url: "/Records/editRange",
+                    data: { listID: listID, StatusID: StatusID}, //lấy listID và  StatusID bên Controller(server)
+                    type: "POST",
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.status) {
+
+                            $('#myModalAdmin').modal('hide');
+                            //LoadData
+                            recordsController.loadData();
+                            $('#myModalAdmin .StatusID').empty(); //rỗng
+                            recordsController.getAllSelect(); //lấy dữ liệu lên lại
+                             //$('#myModalAdmin .StatusID').val("0");//.val("Choose Status"); 'gán'
+                        }
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            },
+
+            //Edit Location
+            locationEditRange(listID) {
+                var LocationID = $('#tblRecords .locationSelect').val(); //$('#tblRecords .locationSelect').val();, khai bao quan he cha con parent - child , closest
+                $.ajax({
+                    url: "/Records/LocationEditRange",
+                    data: { listID: listID, LocationID: LocationID}, //lấy listID và LocationID bên Controller(server)
+                    type: "POST",
+                    dataType: "json",
+                    success: function (res) {
+                        // kiem tra
+                        alert('Successful');
+                        //Clear checkbox
+
+                        recordsController.clearForm();
+                        recordsController.getAllSelect();
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+            },
+
+            edit(RecordID, Title, Description, CategoryID, SubCategoryID, StatusID, LocationID) {
+                //Gui len sever
+                var record = {
+                RecordID: RecordID,
+                //CreatedDate: CreatedDate,
+                CategoryID: CategoryID,
+                SubCategoryID: SubCategoryID,
+                Title: Title,
+                Description: Description,
+                StatusID: StatusID,
+                LocationID: LocationID,
+                //Department: Department,
+                //Team: Team,
+                //Username: Username,
+               // Modifieddate: Modifieddate,
+                };
+
+                $.ajax({
+                    url: "/Records/Edit",
+                    data: record ,
+                type: "POST",
+                dataType: "json",
+                success: function (res) {
+                    if (res.status) {
+                         //LoadData
+                        recordsController.loadData();
+
+                    }
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+            },
+
+            getById(id) {
+
+            },
+
+            getAllSelect() {
+                $.ajax({
+                    url: "/Records/GetAllSelect",
+                type: "GET",
+                dataType: "json",
+                    success: function (res) {
+                        console.log(res);
+                          var status = res.listStatus,
+                                locations = res.listLocations,
+                                categories = res.listCategories,
+                                coloCodes=res.listColoCodes,
+                                subCategories=res.listSubCategories;
+                        var html = '',
+                            optionStatus,
+                            optionLocations,
+                            optionCategories,
+                            optionColorCodes,
+                            optionSubCategories = '';
+
+
+                        //clear form nhung thang con cua options StatusID
+                        $('#myModal .StatusID,#myModalAdmin .StatusID').empty();
+                        //load Choose Status truoc
+                        optionStatus += `<option value="">Choose Status</option>`
+
+                         //clear form nhung thang con cua options CategoryID
+                        $('#myModal .CategoryID, #myuserModal .CategoryID').empty()
+                        //load Choose Categories truoc
+                        optionCategories += `<option value="">Choose Categories</option>`
+
+                        //clear form nhung thang con cua options SubCategoryID
+                        $('#myModal .SubCategoryID, #myuserModal .SubCategoryID').empty();
+                        //load Choose SubCategories truoc
+                        optionSubCategories += `<option value="">Choose SubCategories</option>`
+
+                        //clear form nhung thang con cua options LocationID
+                        $('#myModal .LocationID').empty();
+                        //load Choose Location truoc
+                        optionLocations += `<option value="">Choose Location</option>`
+
+                         //clear form nhung thang con cua options SubCategoryID
+                        $('#myModal .colorCode, #myuserModal .colorCode').empty();
+                        //load Choose SubCategories truoc
+                        optionColorCodes += `<option value="">Choose Color Code</option>`
+
+
+                            //Select Status dropdown
+                            //Load du lieu len
+                            $.each(status, function (i, item) {
+                               optionStatus+= `<option value="${item.StatusID}">${item.Name}</option>`
+                            })
+                            $('#myModal .StatusID,#myModalAdmin .StatusID').append(optionStatus);
+
+                            //Select category dropdown
+                            //Load du lieu len
+                             $.each(categories, function (i, item) {
+                               optionCategories+= `<option value="${item.CategoryID}">${item.Name}</option>`
+                             })
+                            $('#myModal .CategoryID, #myuserModal .CategoryID').append(optionCategories);
+                            //Input thi khong can khai bao bao
+                            //Select subcategory dropdown
+                            //Load du lieu len
+                             $.each(subCategories, function (i, item) {
+                               optionSubCategories+= `<option value="${item.SubCategoryID}">${item.Name}</option>`
+                             })
+                            $('#myModal .SubCategoryID, #myuserModal .SubCategoryID').append(optionSubCategories);
+                            //Select locations dropdown
+                            //Load du lieu len
+                             $.each(locations, function (i, item) {
+                               optionLocations+= `<option value="${item.Number}">${item.Content}</option>`
+                             })
+                        $('#myModal .LocationID').append(optionLocations);
+
+                         $.each(coloCodes, function (i, item) {
+                               optionColorCodes+= `<option value="${item.ID}">${item.Name}</option>`
+                             })
+                            $('#myModal .colorCode, #myuserModal .colorCode').append(optionColorCodes);
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+            },
+
+            validate() {
+                var isValid = true;
+                if ($('#myModal .CategoryID').val().trim() == "") {
+                    $('#myModal .CategoryID').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#myModal .CategoryID').css('border-color', 'lightgrey');
+                }
+                if ($('#myModal .SubCategoryID').val().trim() == "") {
+                    $('#myModal .SubCategoryID').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#myModal .SubCategoryID').css('border-color', 'lightgrey');
+                }
+                if ($('#myModal .Title').val().trim() == "") {
+                    $('#myModal .Title').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#myModal .Title').css('border-color', 'lightgrey');
+                }
+                if ($('#myModal .Description').val().trim() == "") {
+                    $('#myModal .Description').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#myModal .Description').css('border-color', 'lightgrey');
+                }
+                if ($('#myModal .StatusID').val().trim() == "") {
+                    $('#myModal .StatusID').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#myModal .StatusID').css('border-color', 'lightgrey');
+                }
+                if ($('#myModal .LocationID').val().trim() == "") {
+                    $('#myModal .LocationID').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#myModal .LocationID').css('border-color', 'lightgrey');
+                }
+                return isValid;
+            },
+
+            validateuser() {
+                var isValid = true;
+                if ($('#myuserModal .CategoryID').val().trim() == "") {
+                    $('#myuserModal .CategoryID').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#myuserModal .CategoryID').css('border-color', 'lightgrey');
+                }
+                if ($('#myuserModal .SubCategoryID').val().trim() == "") {
+                    $('#myuserModal .SubCategoryID').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#myuserModal .SubCategoryID').css('border-color', 'lightgrey');
+                }
+                if ($('#myuserModal .Title').val().trim() == "") {
+                    $('#myuserModal .Title').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#myuserModal .Title').css('border-color', 'lightgrey');
+                }
+                if ($('#myuserModal .Description').val().trim() == "") {
+                    $('#myuserModal .Description').css('border-color', 'Red');
+                    isValid = false;
+                }
+                else {
+                    $('#myuserModal .Description').css('border-color', 'lightgrey');
+                }
+                return isValid;
+            },
+
+            //dung chung class ." "
+            clearForm() {
+                $('.CategoryID').val("");
+                $('.SubCategoryID').val("");
+                $('.Title').val("");
+                $('.Description').val("");
+                $('.StatusID').val("");
+                $('.LocationID').val("");
+                //clear input show id
+                $('.listInput').val("");
+            },
+
+            //Convert MM/dd/yyyy
+            convertDateJson(d) {
+                if (d === null)
+                    d = "/Date(1000000000000)/";
+
+                let milli = d.replace(/\/Date\((-?\d+)\)\//, '$1');
+                            let date = new Date(parseInt(milli));
+                            let dd = String(date.getDate()).padStart(2, '0');
+                            let MM = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+                let yyyy = date.getFullYear();
+                let hh = date.getHours();
+                let mm = date.getMinutes();
+                let ss = date.getSeconds();
+                //Tra ve dinh dang chuoi ma minh can lay vd: 10/09 10:21:01
+                           return  MM + '/' + dd + ' ' + hh  + ':' + mm  + ':' + ss;
+            },
+        }
+
+    </script>
+}
