@@ -6,9 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DemoDoan.Dto;
+using DemoDoan.helpers;
 using DemoDoan.Models;
 using DemoDoan.ViewModel;
+using KPI.Model.helpers;
 using PagedList;
+using static DemoDoan.MvcApplication;
 
 namespace DemoDoan.Controllers
 {
@@ -17,7 +21,7 @@ namespace DemoDoan.Controllers
         private OurDbContext db = new OurDbContext();
 
         // GET: UserAccounts
-        public ActionResult Index(int page=1)
+        public ActionResult Index(int page = 1)
         {
             //Join do do lieu tu UserAccountVM len giao dien
             var LangID = Session[UserVM.CurrentCulture].ToString();
@@ -26,12 +30,12 @@ namespace DemoDoan.Controllers
             //var teamids = db.Teams.Where(x => x.LanguageID == LangID);
             //var departments = db.Departments.Where(x => x.LanguageID == LangID);
             //var userlanguages = db.UserLanguages.Where(x => x.LanguageID == LangID);
-            //var userAccount = db.userAccount.Where(x => x.LanguageID == LangID);
+            //var UserAccounts = db.UserAccounts.Where(x => x.LanguageID == LangID);
 
-            var model = from useraccount in db.userAccount
+            var model = from useraccount in db.UserAccounts
                         join dep in db.Departments on useraccount.DepartmentID equals dep.DepartmentID
-                        join tea in db.Teams on useraccount.TeamID equals tea.TeamID
-                        join role in db.Roles on useraccount.RoleID equals role.RoleID 
+                        join tea in db.Teams on useraccount.TeamID equals tea.ID
+                        join role in db.Roles on useraccount.RoleID equals role.RoleID
                         select new UserAccountVM
                         {
                             UserID = useraccount.UserID, //UserID khong co userID thi se khong nhan dien 'id' duoc trang edit va delete
@@ -45,10 +49,10 @@ namespace DemoDoan.Controllers
                             Department = dep.Name,
                             Team = tea.Name,
                         };
-            var data = model.ToList().ToPagedList(page,10);
+            var data = model.ToList().ToPagedList(page, 10);
             return View(data);
             //var LangID = Session[UserVM.CurrentCulture].ToString();
-            //return View(db.userAccount.ToList());
+            //return View(db.UserAccounts.ToList());
         }
 
 
@@ -56,14 +60,12 @@ namespace DemoDoan.Controllers
         public ActionResult Create()
         {
             var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
-            //query lay tat ca record theo ngon ngu hien ma user chon
-
             var LangID = Session[UserVM.CurrentCulture].ToString();
+            //query lay tat ca record theo ngon ngu hien ma user chon
+            ViewBag.Team = db.Teams.Select(x => new TeamDto { ID = x.ID, DepartmentID = x.DepartmentID, Name = x.TeamLangs.FirstOrDefault(a => a.LanguageID == LangID).Name }).ToList();
+            ViewBag.Department = db.Departments.Select(x => new DepartmentDto { DepartmentID = x.DepartmentID, Name = x.DepartmentLangs.FirstOrDefault(a => a.LanguageID == LangID).Name }).ToList();
             ViewBag.RoleID = db.Roles.ToList();
-            ViewBag.Team = db.Teams.Where(x => x.LanguageID == LangID);
-            ViewBag.Department = db.Departments.Where(x => x.LanguageID == LangID);
-            ViewBag.Location = db.Locations.Where(x => x.LanguageID == LangID);
-           
+            ViewBag.Location = db.Locations.Select(x => new LocationDto { Number = x.Number, Content = x.LocationLangs.FirstOrDefault(a => a.LanguageID == LangID).Name }).ToList();
             return View();
         }
 
@@ -75,7 +77,13 @@ namespace DemoDoan.Controllers
             var LangID = Session[UserVM.CurrentCulture].ToString();
 
             //cau dieu kien lay team theo department
-            var listdepartment = db.Teams.Where(x => x.LanguageID == LangID && x.DepartmentID == departmentID).ToList();
+            var listdepartment = db.Teams.Where(x => x.DepartmentID == departmentID).Select(
+                x => new TeamDto
+                {
+                    ID = x.ID,
+                    DepartmentID = x.DepartmentID,
+                    Name = x.TeamLangs.FirstOrDefault(a => a.LanguageID == LangID).Name
+                }).ToList();
 
             return Json(new
             {
@@ -91,21 +99,39 @@ namespace DemoDoan.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserAccount userAccount)
+        public ActionResult Create(UserAccount UserAccounts)
         {
-            if (ModelState.IsValid)
-            {
-                db.userAccount.Add(userAccount);
-                var userLanguages = new UserLanguages();
-                userLanguages.UserID = userAccount.UserID;
-                userLanguages.LanguageID = Session[UserVM.CurrentCulture].ToString();
-                userLanguages.TeamID = userAccount.TeamID;
-                //
-                db.UserLanguages.Add(userLanguages);
-                db.SaveChanges();
+            var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
+            UserAccounts.Password = UserAccounts.Password.SHA256Hash();
+           
+                if (user.RoleCode == Commons.ROLE.ADM.ToString())
+                {
+                    db.UserAccounts.Add(UserAccounts);
+                    db.SaveChanges();
+
+                }
+                if (user.RoleCode == Commons.ROLE.DEPTHEAD.ToString())
+                {
+                    UserAccounts.DepartmentID = user.DepartmentID;
+                    UserAccounts.TeamID = UserAccounts.TeamID;
+                    db.UserAccounts.Add(UserAccounts);
+                    db.SaveChanges();
+                }
+                if (user.RoleCode == Commons.ROLE.SUP.ToString())
+                {
+                    UserAccounts.DepartmentID = user.DepartmentID;
+                    UserAccounts.TeamID = user.TeamID;
+                    db.UserAccounts.Add(UserAccounts);
+                    db.SaveChanges();
+
+                }
                 return RedirectToAction("Index");
-            }
-            return View(userAccount);
+            //}
+            //catch (Exception)
+            //{
+
+            //    return View(UserAccounts);
+            //}
         }
 
         // GET: UserAccounts/Edit/5
@@ -116,8 +142,10 @@ namespace DemoDoan.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserAccount userAccount = db.userAccount.Find(id);
-            if (userAccount == null)
+            UserAccount UserAccounts = db.UserAccounts.Find(id);
+
+            var model = MappingConfig.Mapper.Map<UserAccount, UserAccountDto>(UserAccounts);
+            if (UserAccounts == null)
             {
                 return HttpNotFound();
             }
@@ -130,50 +158,54 @@ namespace DemoDoan.Controllers
             ViewBag.Team = db.Teams.Where(x => x.LanguageID == LangID);
             ViewBag.Department = db.Departments.Where(x => x.LanguageID == LangID);
             ViewBag.Location = db.Locations.Where(x => x.LanguageID == LangID);
-            ViewBag.RoleID = db.Roles.ToList();
+            ViewBag.Role = db.Roles.ToList();
 
-            return View(userAccount);
+            return View(model);
         }
 
         // POST: UserAccounts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(UserAccount userAccount)
+        public ActionResult Edit(UserAccountDto UserAccounts)
         {
-
             if (ModelState.IsValid)
             {
-                userAccount.LanguageID = Session[UserVM.CurrentCulture].ToString();
+                var item = db.UserAccounts.Find(UserAccounts.UserID);
+                item.Email = UserAccounts.Email;
+                item.RoleID = UserAccounts.RoleID;
+                item.Status = UserAccounts.Status;
+                item.DepartmentID = UserAccounts.DepartmentID;
+                item.TeamID = UserAccounts.TeamID;
+                item.IDcardNumber = UserAccounts.IDcardNumber;
 
-                db.Entry(userAccount).State = EntityState.Modified;
+                //db.Entry(model).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(userAccount);
+            return View(UserAccounts);
         }
 
-       
+
         [HttpPost, ActionName("Delete")]
         public ActionResult Delete(int id)
         {
             bool status;
-            UserAccount userAccount = db.userAccount.Find(id);
-            db.userAccount.Remove(userAccount);
+            UserAccount UserAccounts = db.UserAccounts.Find(id);
+            db.UserAccounts.Remove(UserAccounts);
             try
             {
                 db.SaveChanges();
                 status = true;
             }
-            catch 
+            catch
             {
                 status = false;
             }
-            return Json( new
+            return Json(new
             {
                 status,
-                url ="/UserAccounts"
+                url = "/UserAccounts"
             }, JsonRequestBehavior.AllowGet);
         }
         protected override void Dispose(bool disposing)

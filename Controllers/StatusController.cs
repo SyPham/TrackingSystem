@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DemoDoan.Models;
@@ -19,79 +20,144 @@ namespace DemoDoan.Controllers
         // GET: Status
         public ActionResult Index(int page = 1)
         {
-            var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
-            //query lay tat ca record theo ngon ngu hien ma user chon
-
-            var LangID = Session[UserVM.CurrentCulture].ToString();
-            ViewBag.Teams = db.Status.Where(x => x.LanguageID == LangID);
-
-            return View(db.Status.OrderBy(x=>x.LanguageID).ToPagedList(page, 10));
+            return View(db.Status.OrderBy(x=>x.StatusID).ToPagedList(page, 10));
         }
         public ActionResult BackToRecord()
         {
             return Redirect("/Records/Index");
         }
-      
+
+
         // GET: Status/Create
         public ActionResult Create()
         {
-            var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
-            //query lay tat ca record theo ngon ngu hien ma user chon
-            ViewBag.Language = db.Language;
-            var LangID = Session[UserVM.CurrentCulture].ToString();
-            ViewBag.Status = db.Status;
             return View();
         }
 
         // POST: Status/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StatusID,Name,LanguageID")] Status status)
+        public async Task<ActionResult> Create(Status status, string nameVI, string nameEN, string NameTW)
         {
-            if (ModelState.IsValid)
+            try
             {
+                status.Name = nameVI + " - " + nameEN + " - " + NameTW; ;
                 db.Status.Add(status);
-                status.LanguageID = Session[UserVM.CurrentCulture].ToString();
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                await db.SaveChangesAsync();
+                StatusLang vn = new StatusLang();
+                vn.Name = nameVI;
+                vn.LanguageID = "vi";
+                vn.StatusID = status.StatusID;
+                db.StatusLangs.Add(vn);
 
-            return View(status);
+                StatusLang en = new StatusLang();
+                en.Name = nameEN;
+                en.LanguageID = "en";
+                en.StatusID = status.StatusID;
+                db.StatusLangs.Add(en);
+
+                StatusLang tw = new StatusLang();
+                tw.Name = NameTW;
+                tw.LanguageID = "en";
+                tw.StatusID = status.StatusID;
+                db.StatusLangs.Add(tw);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception)
+            {
+                return View(status);
+            }
         }
 
-        // GET: Status/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Status status = db.Status.Find(id);
+            var status = await db.Status.FindAsync(id);
+            var itemVi = await db.StatusLangs.FirstOrDefaultAsync(x => x.StatusID == id && x.LanguageID == "vi");
+            var itemEn = await db.StatusLangs.FirstOrDefaultAsync(x => x.StatusID == id && x.LanguageID == "en");
+            var itemTw = await db.StatusLangs.FirstOrDefaultAsync(x => x.StatusID == id && x.LanguageID == "tw");
+            if (itemVi == null) ViewBag.VI = status.Name; else ViewBag.VI = itemVi.Name;
+            if (itemEn == null) ViewBag.EN = status.Name; else ViewBag.EN = itemEn.Name;
+            if (itemTw == null) ViewBag.TW = status.Name; else ViewBag.TW = itemTw.Name;
             if (status == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Language = db.Language;
+
+            var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
+            //query lay tat ca record theo ngon ngu hien ma user chon
+
+            var LangID = Session[UserVM.CurrentCulture].ToString();
+            ViewBag.Languages = db.Language.ToList();
             return View(status);
         }
 
-        // POST: Status/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StatusID,Name,LanguageID")] Status status)
+        public async Task<ActionResult> Edit(Status status, string nameVI, string nameEN, string nameTW)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(status).State = EntityState.Modified;
-                status.LanguageID = Session[UserVM.CurrentCulture].ToString();
-                db.SaveChanges();
+                var id = status.StatusID;
+                var itemOri = await db.Status.FindAsync(id);
+                var itemVi = await db.StatusLangs.FirstOrDefaultAsync(x => x.StatusID == id && x.LanguageID == "vi");
+                var itemEn = await db.StatusLangs.FirstOrDefaultAsync(x => x.StatusID == id && x.LanguageID == "en");
+                var itemTw = await db.StatusLangs.FirstOrDefaultAsync(x => x.StatusID == id && x.LanguageID == "tw");
+
+                await db.SaveChangesAsync();
+                if (itemVi == null)
+                {
+                    StatusLang vn = new StatusLang();
+                    vn.Name = nameVI;
+                    vn.LanguageID = "vi";
+                    vn.StatusID = status.StatusID;
+                    db.StatusLangs.Add(vn);
+                }
+                else
+                {
+                    itemVi.Name = nameVI;
+                }
+                if (itemTw == null)
+                {
+                    StatusLang tw = new StatusLang();
+                    tw.Name = nameTW;
+                    tw.LanguageID = "tw";
+                    tw.StatusID = status.StatusID;
+                    db.StatusLangs.Add(tw);
+                }
+                else
+                {
+                    itemTw.Name = nameTW;
+                }
+                if (itemEn == null)
+                {
+                    StatusLang en = new StatusLang();
+                    en.Name = nameEN;
+                    en.LanguageID = "en";
+                    en.StatusID = status.StatusID;
+                    db.StatusLangs.Add(en);
+                }
+                else
+                {
+                    itemEn.Name = nameEN;
+                }
+                itemOri.Name = nameVI + " - " + nameEN + " - " + nameTW;
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
+
             }
-            return View(status);
+            catch (Exception)
+            {
+                return View(status);
+
+            }
         }
 
         [HttpPost, ActionName("Delete")]

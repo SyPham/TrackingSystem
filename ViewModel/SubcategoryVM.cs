@@ -17,6 +17,7 @@ namespace DemoDoan.ViewModel
         public int CategoryID { get; set; }
         public string Language { get; set; }
         public string LanguageID { get; set; }
+        public DateTime CreateTime { get; set; }
 
     }
 }

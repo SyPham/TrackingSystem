@@ -45,25 +45,19 @@
         <th>
             @StaticResource.Resource.General_Department
         </th>
-        <th>
-            @StaticResource.Resource.General_Language
-        </th>
         <th>Option</th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr class="text-center">
-            <td>@count</td>
+            <td style="width:15px">@count</td>
             <td>
                 @Html.DisplayFor(modelItem => item.TeamName)
             </td>
 
             <td>
                 @Html.DisplayFor(modelItem => item.Department)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LanguageID)
             </td>
             <td>
                 @Html.ActionLink(StaticResource.Resource.Record_Edit, "Edit", new { id = item.TeamID }, htmlAttributes: new { @class = "btn btn-primary btn-sm" }) |

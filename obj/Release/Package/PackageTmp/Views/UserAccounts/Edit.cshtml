@@ -1,11 +1,11 @@
-﻿@model DemoDoan.Models.UserAccount
+﻿@model DemoDoan.Dto.UserAccountDto
 
 @{
     ViewBag.Title = "Edit";
     var locations = (IEnumerable<DemoDoan.Models.Location>)ViewBag.Location;
     var departments = (IEnumerable<DemoDoan.Models.Department>)ViewBag.Department;
     var teams = (IEnumerable<DemoDoan.Models.Team>)ViewBag.Team;
-    var roles = (IEnumerable<DemoDoan.Models.Role>)ViewBag.RoleID;
+    var roles = (IEnumerable<DemoDoan.Models.Role>)ViewBag.Role;
 }
 
 
@@ -54,7 +54,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.RoleID)
 
-                @Html.DropDownListFor(model => model.RoleID, new SelectList(departments, "RoleID", "Name"), "- Please Select -", new { @class = "form-control", @id = "RoleID" })
+                @Html.DropDownListFor(model => model.RoleID, new SelectList(roles, "RoleID", "Name"), "- Please Select -", new { @class = "form-control", @id = "RoleID" })
                 @Html.ValidationMessageFor(model => model.RoleID, "", new { @class = "text-danger" })
             </div>
         </div>

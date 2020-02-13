@@ -44,11 +44,7 @@
         <th>
             @StaticResource.Resource.Record_StatusName
         </th>
-        <th>
-            @StaticResource.Resource.General_Language
-
-        </th>
-        <th></th>
+        <th>Option</th>
     </tr>
 
     @foreach (var item in Model)
@@ -57,9 +53,6 @@
             <td>@count</td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LanguageID)
             </td>
             <td>
                 @Html.ActionLink(StaticResource.Resource.Record_Edit, "Edit", new { id = item.StatusID }, htmlAttributes: new { @class = "btn btn-primary btn-sm" }) |

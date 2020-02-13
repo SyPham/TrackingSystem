@@ -26,7 +26,7 @@ namespace DemoDoan.Models
         [Display(Name = "UserAccounts_Username",ResourceType = typeof(StaticResource.Resource))]
         public string Username { get; set; }
 
-        [StringLength(20)]
+        [StringLength(3000)]
         [Column(TypeName = "nvarchar")]
         [Display(Name = "UserAccounts_Password", ResourceType = typeof(StaticResource.Resource))]
         //[Required(ErrorMessage = "Please enter your Password.")]
@@ -69,17 +69,12 @@ namespace DemoDoan.Models
 
         [Display(Name = "UserAccounts_RoleID", ResourceType = typeof(StaticResource.Resource))]
         public int RoleID { get; set; }
-
+        public virtual Role Role { get; set; }
         [Display(Name = "UserAccounts_DepartmentID", ResourceType = typeof(StaticResource.Resource))]
         public int DepartmentID { get; set; }
-
         [Display(Name = "UserAccounts_TeamID", ResourceType = typeof(StaticResource.Resource))]
         public int TeamID { get; set; }
-
-        public int DepartmentHeadID { get; set; }
-
         public int LocationID { get; set; }
-
         public string LanguageID { get; set; }
         public int PemisionID { get; set; }
 

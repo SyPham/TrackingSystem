@@ -143,6 +143,110 @@
                         <tbody class="tbody" id="tblRecords">
                         </tbody>
                     </table>
+                    <script type="text/ng-template" id="admin-template">
+                        <tr class="{{CheckRoleID}}" data-id="{{RecordID}}">
+                                            <td>
+                                                <div class="pretty p-default p-smooth p-bigger">
+                                                    <input class="recordCheckbox" data-edit="{{RecordID}}" name="recordCheckbox" type="checkbox" />
+                                                    <div class="state p-success-o">
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                               <span class="{{ColorCode}}"> {{Tracking}}</span>
+                                            </td>
+                                            <td>
+                                                {{CreatedDate}}
+                                            </td>
+                                            <td>
+                                                <select class="categoriesSelect strip"><option value="">.: Please choose document category:.</option>{{{optionCategories}}}</select>
+                                            </td>
+                                            <td >
+                                                <select class="subcategoriesSelect strip"><option value="">.: Please choose approval sheet category:.</option>{{{optionSubCategories}}}</select>
+                                            </td>
+                                            <td>
+
+                                                 <input  value="{{Title}}" class="titleInput strip" type="text">
+                                            </td>
+                                            <td>
+                                                 <input  value="{{Description}}" data-toggle="tooltip" title="{{Description}}" class="descriptionInput strip" type="text">
+
+                                            </td>
+                                            <td>
+                                                <select class="statusSelect strip"> <option value="">.: Please choose status:.</option>{{{optionStatus}}}</select>
+                                            </td>
+                                            <td>
+                                                <select class="locationSelect strip"><option value="">.: Please choose location:.</option>{{{optionLocations}}}</select>
+                                            </td>
+                                            <td>
+                                                {{Department}}
+                                            </td>
+                                            <td>
+                                                {{Team}}
+                                            </td>
+                                            <td>
+                                                {{Username}}
+                                            </td>
+                                            <td>
+                                                {{Modifieddate}}
+                                            </td>
+                                            <td>
+                                                <button data-id="{{RecordID}}" class="btn btn-danger btn-sm deleteButton">Delete</button>
+                                            </td>
+                                        </tr>
+                    </script>
+                    <script type="text/template" id="user-template">
+                        <tr class="{{CheckRoleID}}" data-id="{{RecordID}}">
+                            <td>
+                                <div class="pretty p-default p-smooth p-bigger">
+                                    <input class="recordCheckbox" data-edit="{{RecordID}}" name="recordCheckbox" type="checkbox" />
+                                    <div class="state p-success-o">
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="{{ColorCode}}"> {{Tracking}}</span>
+                            </td>
+                            <td>
+                                {{CreatedDate}}
+                            </td>
+                            <td>
+                                <select class="categoriesSelect strip"><option value="">.: Please choose document category:.</option>{{{optionCategories}}}</select>
+                            </td>
+                            <td>
+                                <select class="subcategoriesSelect strip"><option value="">.: Please choose approval sheet category:.</option>{{{optionSubCategories}}}</select>
+                            </td>
+                            <td>
+                                <input value="{{Title}}" class="titleInput strip" type="text">
+                            </td>
+                            <td>
+                                <input value="{{Description}}" data-toggle="tooltip" title="{{Description}}" class="descriptionInput strip" type="text">
+                            </td>
+                            <td>
+                                <select disabled class="statusSelect strip"> <option value="">.: Please choose status:.</option>{{{optionStatus}}}</select>
+                            </td>
+                            <td>
+                                <select disabled class="locationSelect strip"><option value="">.: Please choose location:.</option>{{{optionLocations}}}</select>
+                            </td>
+                            <td>
+                                {{Department}}
+                            </td>
+                            <td>
+                                {{Team}}
+                            </td>
+                            <td>
+                                {{Username}}
+                            </td>
+                            <td>
+                                {{Modifieddate}}
+                            </td>
+                            <td>
+                                <button data-id="{{RecordID}}" class="btn btn-danger btn-sm deleteButton">Delete</button>
+                            </td>
+                        </tr>
+                    </script>
                     <hr />
                     <ul id="pagination" class="pagination pagination-sm no-margin pull-right">
                         <li><a href="#">«</a></li>
@@ -784,121 +888,23 @@
                              $.each(optionColorCodes, function (i, item) {
                                optionColorCodes+= `<option value="${item.ID}">${item.Name}</option>`
                              })
+                            console.log(optionLocations)
                             //var count = page;
                             // if (page !== 1)
                             //        count = (pageSize + 1);
                             var template = ``;
 
                             if (role !== 1) {
+                                template = $('#user-template').html();
                                 //data-edit="{{RecordID}}" edit chinh la id cua RecordID #deleteButton #myModalAdmin .StatusID
                                 //hien thi noi dung khi tro con chuot vao:
                                 //<input  value="{{Description}}" data-toggle="tooltip" title="{{Description}}" class="descriptionInput strip" type="text">
-                                template = `<tr class="{{CheckRoleID}}" data-id="{{RecordID}}">
-                                            <td>
-                                                <div class="pretty p-default p-smooth p-bigger">
-                                                    <input class="recordCheckbox" data-edit="{{RecordID}}" name="recordCheckbox" type="checkbox" />
-                                                    <div class="state p-success-o">
-                                                        <label></label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                               <span class="{{ColorCode}}"> {{Tracking}}</span>
-                                            </td>
-                                            <td>
-                                                {{CreatedDate}}
-                                            </td>
-                                            <td>
-                                                <select class="categoriesSelect strip"><option value=" ">.: Choose categories :.</option>${optionCategories}</select>
-                                            </td>
-                                            <td>
-                                                <select class="subcategoriesSelect strip"><option value=" ">.: Choose subcategories :.</option>${optionSubCategories}</select>
-                                            </td>
-                                            <td>
-                                                 <input  value="{{Title}}" class="titleInput strip" type="text">
-                                            </td>
-                                            <td>
-                                                <input  value="{{Description}}" data-toggle="tooltip" title="{{Description}}" class="descriptionInput strip" type="text">
-                                            </td>
-                                            <td>
-                                               <select disabled class="statusSelect strip"><option value=" ">.: Choose status :.</option> ${optionStatus}</select>
-                                            </td>
-                                            <td>
-                                                <select disabled class="locationSelect strip"><option value=" ">.: Choose location :.</option>${optionLocations}</select>
-                                            </td>
-                                            <td>
-                                                {{Department}}
-                                            </td>
-                                            <td>
-                                                {{Team}}
-                                            </td>
-                                            <td>
-                                                {{Username}}
-                                            </td>
-                                            <td>
-                                                {{Modifieddate}}
-                                            </td>
-                                             <td>
-                                                <button data-id="{{RecordID}}" class="btn btn-danger btn-sm deleteButton">Delete</button>
-                                            </td>
-                                        </tr>`;
                             }
                             else
                             {
-                                template = `<tr class="{{CheckRoleID}}" data-id="{{RecordID}}">
-                                            <td>
-                                                <div class="pretty p-default p-smooth p-bigger">
-                                                    <input class="recordCheckbox" data-edit="{{RecordID}}" name="recordCheckbox" type="checkbox" />
-                                                    <div class="state p-success-o">
-                                                        <label></label>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                               <span class="{{ColorCode}}"> {{Tracking}}</span>
-                                            </td>
-                                            <td>
-                                                {{CreatedDate}}
-                                            </td>
-                                            <td>
-                                                <select class="categoriesSelect strip"><option value=" ">.: Choose categories :.</option>${optionCategories}</select>
-                                            </td>
-                                            <td >
-                                                <select class="subcategoriesSelect strip"><option value=" ">.: Choose subcategories :.</option>${optionSubCategories}</select>
-                                            </td>
-                                            <td>
+                                template = $('#admin-template').html();
 
-                                                 <input  value="{{Title}}" class="titleInput strip" type="text">
-                                            </td>
-                                            <td>
-                                                 <input  value="{{Description}}" data-toggle="tooltip" title="{{Description}}" class="descriptionInput strip" type="text">
-
-                                            </td>
-                                            <td>
-                                               <select class="statusSelect strip"><option value=" ">.: Choose status :.</option> ${optionStatus}</select>
-                                            </td>
-                                            <td>
-                                                <select class="locationSelect strip"><option value=" ">.: Choose location :.</option>${optionLocations}</select>
-                                            </td>
-                                            <td>
-                                                {{Department}}
-                                            </td>
-                                            <td>
-                                                {{Team}}
-                                            </td>
-                                            <td>
-                                                {{Username}}
-                                            </td>
-                                            <td>
-                                                {{Modifieddate}}
-                                            </td>
-                                            <td>
-                                                <button data-id="{{RecordID}}" class="btn btn-danger btn-sm deleteButton">Delete</button>
-                                            </td>
-                                        </tr>`;
                             }
-
-              
                             //Load het danh sach
                             $.each(dataRecords, function (i, item) {
 
@@ -921,7 +927,11 @@
                                     Team: item.TeamName,
                                     Username: item.Username,
                                     Modifieddate: recordsController.convertDateJson(item.Modifieddate),
-                                    ColorCode : item.ColorCode
+                                    ColorCode: item.ColorCode,
+                                    optionStatus:optionStatus,
+                                    optionLocations:optionLocations,
+                                    optionCategories:optionCategories,
+                                    optionSubCategories:optionSubCategories
                                 });
                             });
                             //Load xong danh sach

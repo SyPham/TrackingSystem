@@ -25,7 +25,8 @@ namespace DemoDoan.Models
 
         public DateTime CreateTime { get; set; }
 
-
         public string LanguageID { get; set; }
+        public virtual List<DepartmentLang> DepartmentLangs { get; set; }
+
     }
 }

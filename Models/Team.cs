@@ -11,7 +11,7 @@ namespace DemoDoan.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TeamID { get; set; }
+        public int ID { get; set; }
 
         [StringLength(255)]
         [Column(TypeName = "nvarchar")]
@@ -24,5 +24,7 @@ namespace DemoDoan.Models
 
         [Display(Name = "Team_LanguageID", ResourceType = typeof(StaticResource.Resource))]
         public string LanguageID { get; set; }
+        public virtual List<TeamLang> TeamLangs { get; set; }
+
     }
 }

@@ -2,10 +2,13 @@
 
 @{
     ViewBag.Title = "Create";
-    var locations = (IEnumerable<DemoDoan.Models.Location>)ViewBag.Location;
-    var teams = (IEnumerable<DemoDoan.Models.Team>)ViewBag.Team;
-    var department = (IEnumerable<DemoDoan.Models.Department>)ViewBag.Department;
+    var locations = (IEnumerable<DemoDoan.Dto.LocationDto>)ViewBag.Location;
+    var teams = (IEnumerable<DemoDoan.Dto.TeamDto>)ViewBag.Team;
+    var department = (IEnumerable<DemoDoan.Dto.DepartmentDto>)ViewBag.Department;
+    
     var roles = (IEnumerable<DemoDoan.Models.Role>)ViewBag.RoleID;
+    var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
+
 }
 
 
@@ -30,7 +33,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.Password)
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -60,15 +63,15 @@
         <div class="col-lg-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.DepartmentID)
-                @Html.DropDownListFor(model => model.DepartmentID, new SelectList(department, "DepartmentID", "Name"), "- Please Select -", new { @class = "form-control", @id = "departmentID" })
+                @Html.DropDownListFor(model => model.DepartmentID, new SelectList(department, "DepartmentID", "Name"), "- Please Select -", new { @class = "form-control Department", @id = "departmentID" })
                 @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="col-lg-6">
 
             <div class="form-group">
-                @Html.LabelFor(model => model.TeamID, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.DropDownListFor(model => model.TeamID, new SelectList(teams, "TeamID", "Name"), "- Please Select -", new { @class = "form-control", @id = "teamID" })
+                @Html.LabelFor(model => model.TeamID, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.TeamID, new SelectList(teams, "ID", "Name"), "- Please Select -", new { @class = "form-control Team", @id = "teamID" })
                 @Html.ValidationMessageFor(model => model.TeamID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -88,19 +91,56 @@
             </div>
         </div>
         <div class="col-lg-12">
-            @Html.ActionLink(StaticResource.Resource.General_BackToList,"Index", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
+            @Html.ActionLink(StaticResource.Resource.General_BackToList, "Index", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
         </div>
     </div>
 }
-
-
-
 @section scripts
     {
     <script>
 
         $(function () {
-            $('#departmentID').off('change').on('change', function () {
+            var roleCode = @Html.Raw(Json.Encode(user.RoleCode));
+            var departmentID = @Html.Raw(Json.Encode(user.DepartmentID));
+
+            var teamID = @Html.Raw(Json.Encode(user.TeamID));
+            if (roleCode === DEPTHEAD) {
+                    $(".Department").prop('disabled', true);
+                $('.Department').val(departmentID);
+                $.ajax({
+                    url: "/UserAccounts/GetbyDepartment" , /*cach 2 + departmentID,  */
+                    data: {departmentID :departmentID} ,//cach1:
+                     type: "GET",
+                     dataType: "json",
+                    success: function (response) {
+                        if (response.status) {
+                            var option = '';
+                            //vong lap sinh ra item.TeamID va item.Nametrong bang Teams (jquery), dien  @*@id*@ = "teamID" vao dropdown team can lay o tren
+                            $.each(response.data, function (i, item) {
+                               option+= `<option value="${item.TeamID}">${item.Name}</option>`
+                            })
+                            //clear
+                            $('#teamID').empty();
+                            //
+                            $('#teamID').append(option);
+                            //`<option value="${item.Number}">${item.Content}</option>`
+                            //$("#teamID").append('');
+                                    //('<option value="'+ key +'">'+ value +'</option>');
+                        }
+                    },
+                    error: function (response) {
+                        alert("error!");  //
+                    }
+                    });
+            }
+            if (roleCode === SUP) {
+                $('.Department').val(departmentID);
+                $('.Team').val(teamID);
+                $(".Department, .Team").prop('disabled', true);
+
+            }
+             if (roleCode === ADM) {
+                  $('#departmentID').off('change').on('change', function () {
                 var departmentID = $(this).val();
 
 
@@ -131,6 +171,8 @@
 
                 });
             });
+            }
+          
         });
     </script>
 }

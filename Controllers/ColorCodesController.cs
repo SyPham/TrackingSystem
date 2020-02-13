@@ -19,7 +19,7 @@ namespace DemoDoan.Controllers
         // GET: ColorCodes
         public async Task<ActionResult> Index(int page =1)
         {
-            return View((await db.ColorCodes.ToListAsync()).ToPagedList(page, 10));
+            return View((await db.ColorCodes.OrderBy(x=>x.ID).ToListAsync()).ToPagedList(page, 10));
         }
 
         // GET: ColorCodes/Details/5

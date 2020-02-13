@@ -10,6 +10,11 @@ namespace DemoDoan.Models
 {
     public class Record
     {
+        public Record()
+        {
+            this.CreatedDate = DateTime.Today;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 

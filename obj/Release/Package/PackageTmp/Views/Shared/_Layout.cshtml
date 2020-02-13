@@ -1,5 +1,4 @@
 ﻿@using StaticResource;
-
 @{
     var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"]; /*lay ra ten user tu phien dang nhap session*/
 }
@@ -68,66 +67,72 @@
                 <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu">
                     <i class="fa fa-user fa-lg"></i>
                     @*lay ra  ten user tu phien dang nhap session*@
-                    <span class="titleUser">@user.Username</span>
+                    <span class="titleUser">@user.Alias</span>
                 </a>
                 <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                    <li><a class="dropdown-item" style="cursor:pointer" data-toggle="modal" data-target="#modal-group-change-password"><i class="fa fa-chain-broken"></i> Change Password</a></li>
                     <li><a class="dropdown-item" href="/Login/Logout"><i class="fa fa-sign-out"></i> Logout</a></li>
                 </ul>
             </li>
         </ul>
     </header>
+    <div class="modal fade" id="modal-group-change-password" style="display: none">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Change Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="get" id="changepassword">
+                        <div class="box-body" id="ChangePassword">
+                            <div class="form-group">
+                                <label for="username">Username </label>
+                                <input type="text" class="form-control username disabled" name="username" value="@user.Username" placeholder="username" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="passwordOld">Password Old</label>
+                                <input type="password" class="form-control password" name="password" placeholder="Enter password">
+                            </div>
+                            <div class="form-group">
+                                <label for="passwordNew">Password New</label>
+                                <input type="password" class="form-control password" name="passwordNew" placeholder="Enter password">
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button id="btnChangePassword" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
-        @if (user.RoleID == 1)
-        {
-            <div class="app-sidebar__user">
-                @*<img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">*@
-                <div>
-                    @*<p class="app-sidebar__user-name">John Doe</p>
-                        <p class="app-sidebar__user-designation">Frontend Developer</p>*@
-                </div>
+        <div class="app-sidebar__user">
+            @*<img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">*@
+            <div>
+                @*<p class="app-sidebar__user-name">John Doe</p>
+                <p class="app-sidebar__user-designation">Frontend Developer</p>*@
             </div>
-
-            <ul class="app-menu">
+        </div>
+        <ul class="app-menu">
+            @foreach (var item in user.Menus)
+            {
                 <li>
-                    <a class="app-menu__item" href="/UserAccounts/Index"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">UserAccounts</span></a>
+                    <a class="app-menu__item" href="@item.Url"><i class="@item.FontawareSome"></i><span class="app-menu__label">@item.Title</span></a>
                 </li>
-                <li class="treeview">
-                    <a class="app-menu__item" href="/Languages"><i class="app-menu__icon fa fa-language"></i><span class="app-menu__label">Languages</span><i class="treeview-indicator"></i></a>
-                </li>
-                <li class="treeview">
-                    <a class="app-menu__item" href="/Teams/Index"><i class="app-menu__icon fa fa-object-group"></i><span class="app-menu__label">Teams</span><i class="treeview-indicator"></i></a>
-                </li>
-                <li><a class="app-menu__item" href="/Categories/Index"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Categories</span></a></li>
-                <li class="treeview">
-                    <a class="app-menu__item" href="/SubCategories/Index"><i class="app-menu__icon fa fa-bar-chart"></i><span class="app-menu__label">SubCategories</span><i class="treeview-indicator"></i></a>
-                </li>
-                <li class="treeview">
-                    <a class="app-menu__item" href="/Status/Index"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Status</span><i class="treeview-indicator"></i></a>
-                </li>
-                <li class="treeview">
-                    <a class="app-menu__item" href="/Locations/Index"><i class="app-menu__icon fa fa-feed"></i><span class="app-menu__label">Locations</span><i class="treeview-indicato"></i></a>
-                </li>
-                <li class="treeview">
-                    <a class="app-menu__item" href="/Departments/Index"><i class="fa fa-plus"></i><span class="app-menu__label">Departments</span><i class="treeview-indicato"></i></a>
-                </li>
-                <li class="treeview">
-                    <a class="app-menu__item" href="/ColorCodes/Index"><i class="fa fa-contao"></i><span class="app-menu__label">Color Code</span><i class="treeview-indicato"></i></a>
-                </li>
-            </ul>
-
-        }
-        else
-        {
-            <div class="app-sidebar__user">
-                <div>
-                </div>
-            </div>
-            <ul class="app-menu">
-                <li><a class="app-menu__item" href="/Records/Index"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Records</span></a></li>
-            </ul>
-        }
+            }
+        </ul>
 
     </aside>
     @*<main class="app-content">*@
@@ -138,6 +143,7 @@
     <script src="~/htmls/js/jquery-3.2.1.min.js"></script>
     <script src="~/Scripts/Plugins/jquery.twbsPagination.js"></script>
     <script src="~/Content/plugins/sweetalert/sweetalert2@8.js"></script>
+    <script src="~/Scripts/constant.js"></script>
 
     @* my javascript *@
     <script src="~/Content/commons/commons.js"></script>
@@ -161,6 +167,23 @@
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             ga('create', 'UA-72504830-1', 'auto');
             ga('send', 'pageview');
+        }
+
+        $("#btnChangePassword").off("click").on("click", function (e) {
+            e.preventDefault();
+            changePassword();
+        })
+
+        function changePassword() {
+            $get("/Login/ChangePassword", $("#changepassword").serialize())
+                .then(data => {
+                    if (data.status) {
+                        $success(data.message);
+                        $('#changepassword')[0].reset();
+                    }
+                    else
+                        $error(data.message);
+                })
         }
     </script>
     @RenderSection("scripts", required: false)

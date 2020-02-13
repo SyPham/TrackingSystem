@@ -29,5 +29,7 @@ namespace DemoDoan.Models
 
         [Display(Name = "Location_LanguageID", ResourceType = typeof(StaticResource.Resource))]
         public string LanguageID { get; set; }
+        public virtual List<LocationLang> LocationLangs { get; set; }
+
     }
 }

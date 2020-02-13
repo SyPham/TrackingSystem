@@ -9,6 +9,11 @@ namespace DemoDoan.Models
 {
     public class SubCategory
     {
+        public SubCategory()
+        {
+            this.CreateTime = DateTime.Today;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SubCategoryID { get; set; }
@@ -26,5 +31,7 @@ namespace DemoDoan.Models
 
         [Display(Name = "SubCategory_LanguageID", ResourceType = typeof(StaticResource.Resource))]
         public string LanguageID { get; set; }
+        public virtual List<SubCategoryLang> SubCategoryLangs { get; set; }
+
     }
 }

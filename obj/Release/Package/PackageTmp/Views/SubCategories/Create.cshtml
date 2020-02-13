@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Create";
     var category = (IEnumerable<DemoDoan.Models.Category>)ViewBag.Categories;
-    var languages = (IEnumerable<DemoDoan.Models.Language>)ViewBag.Languages;
 }
 
 
@@ -14,7 +13,6 @@
     <div class="row">
         <div class="col-lg-12">
             <h2>@StaticResource.Resource.UserAccounts_CreateNew</h2>
-
             <h4>SubCategory</h4>
         </div>
         <div class="col-lg-12">
@@ -22,25 +20,30 @@
         </div>
         <div class="col-lg-12">
             <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                <label>Name VI</label>
+                <input type="text" name="nameVI" class="form-control" id="nameVI" />
             </div>
         </div>
         <div class="col-lg-12">
             <div class="form-group">
-                @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label>Name EN</label>
+                <input type="text" name="nameEN" class="form-control" id="nameEN" />
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label>Name TW</label>
+                <input type="text" name="nameTW" class="form-control" id="nameTW" />
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label" })
                 @Html.DropDownListFor(model => model.CategoryID, new SelectList(category, "CategoryID", "Name"), "- Please Select -", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="col-lg-12">
-            <div class="form-group">
-                @Html.LabelFor(model => model.LanguageID, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.DropDownListFor(model => model.LanguageID, new SelectList(languages, "LanguageID", "Name"), "- Please Select -", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.LanguageID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
         <div class="col-lg-12">
 
             <div class="form-group">
@@ -48,7 +51,7 @@
             </div>
         </div>
         <div class="col-lg-12">
-            @Html.ActionLink(StaticResource.Resource.General_BackToList,"Index", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
+            @Html.ActionLink(StaticResource.Resource.General_BackToList, "Index", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
 
         </div>
     </div>

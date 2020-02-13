@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -36,45 +37,38 @@ namespace DemoDoan.Controllers
             //query lay tat ca record theo ngon ngu hien ma user chon
 
             var LangID = Session[UserVM.CurrentCulture].ToString();
-            var listStatus = db.Status.Where(x => x.LanguageID == LangID);
-            var listCategories = db.Categories.Where(x => x.LanguageID == LangID);
-            var listSubCategories = db.SubCategories.Where(x => x.LanguageID == LangID);
-            var listLocations = db.Locations.Where(x => x.LanguageID == LangID);
+            var listStatus =  db.Status.Select(x => new { x.StatusID, x.StatusLangs.FirstOrDefault(a => a.LanguageID == LangID).Name }).ToList();
+            var listCategories =  db.Categories.Select(x => new { x.CategoryID, x.CategoryLangs.FirstOrDefault(a => a.LanguageID == LangID).Name }).ToList();
+            var listSubCategories =  db.SubCategories.Select(x => new { x.SubCategoryID, x.SubCategoryLangs.FirstOrDefault(a => a.LanguageID == LangID).Name }).ToList();
+            var listLocations =  db.Locations.Select(x => new { x.Number, Content = x.LocationLangs.FirstOrDefault(a => a.LanguageID == LangID).Name }).ToList();
 
             //
-            var records = db.Records.Where(x => x.LanguageID == LangID);
-            var locations = db.Locations.Where(x => x.LanguageID == LangID);
-            var categories = db.Categories.Where(x => x.LanguageID == LangID);
-            var status = db.Status.Where(x => x.LanguageID == LangID);
-            var teamids = db.Teams.Where(x => x.LanguageID == LangID);
-            var departments = db.Departments.Where(x => x.LanguageID == LangID);
-            var subCategories = db.SubCategories.Where(x => x.LanguageID == LangID);
-            var colorCodes = db.ColorCodes.ToList();
+            var records = db.Records;
+            var locations = db.Locations;
+            var categories = db.Categories;
+            var status = db.Status;
+            var teamids = db.Teams;
+            var departments = db.Departments;
+            var subCategories = db.SubCategories;
+            var colorCodes = db.ColorCodes.Select(x=> new { x.Name, x.ID }).ToList();
             if (user != null)
             {
                 if (user.RoleID == 1)
                 {
                     var model = (from record in records
-                                     //
-                                     //join lang in db.Language on record.LanguageID equals lang.LanguageID
-                                     //where record.LanguageID == user.LanguageID
-                                     //trong bang location tai cot locationid , neu bang location number , do du lieu vao sr
                                  join loc in locations on record.LocationID equals loc.Number into sr
-                                 // 
                                  from x in sr.DefaultIfEmpty()
                                  join cate in categories on record.CategoryID equals cate.CategoryID
                                  join sta in status on record.StatusID equals sta.StatusID into aa
                                  from x2 in aa.DefaultIfEmpty()
-                                 join tea in teamids on record.TeamID equals tea.TeamID into bb
+                                 join tea in teamids on record.TeamID equals tea.ID into bb
                                  from x3 in bb.DefaultIfEmpty()
                                  join dep in departments on record.DepartmentID equals dep.DepartmentID into ab
                                  from x4 in ab.DefaultIfEmpty()
-                                     //Left Join LinQ
                                  join sub in subCategories on record.SubCategoryID equals sub.SubCategoryID into scate
                                  from x5 in scate.DefaultIfEmpty()
-                                 join usr in db.userAccount on record.UserID equals usr.UserID
+                                 join usr in db.UserAccounts on record.UserID equals usr.UserID
                                  join color in db.ColorCodes on record.ColorCodeID equals color.ID
-                                 //buoc nay la buoc bat buoc
                                  select new LoadDataRecordVM
                                  {
                                      StatusID = x2.StatusID,
@@ -167,14 +161,14 @@ namespace DemoDoan.Controllers
                                      join cate in categories on record.CategoryID equals cate.CategoryID
                                      join sta in status on record.StatusID equals sta.StatusID into aa
                                      from x2 in aa.DefaultIfEmpty()
-                                     join tea in teamids on record.TeamID equals tea.TeamID into bb
+                                     join tea in teamids on record.TeamID equals tea.ID into bb
                                      from x3 in bb.DefaultIfEmpty()
                                      join dep in departments on record.DepartmentID equals dep.DepartmentID into ab
                                      from x4 in ab.DefaultIfEmpty()
                                          //Left Join LinQ
                                      join sub in subCategories on record.SubCategoryID equals sub.SubCategoryID into scate
                                      from x5 in scate.DefaultIfEmpty()
-                                     join usr in db.userAccount on record.UserID equals usr.UserID
+                                     join usr in db.UserAccounts on record.UserID equals usr.UserID
                                      where record.DepartmentID == user.DepartmentID || listTeamID.Contains(record.TeamID)
                                      join color in db.ColorCodes on record.ColorCodeID equals color.ID
 
@@ -263,14 +257,14 @@ namespace DemoDoan.Controllers
                     if (user.TeamID > 0)
                     {
                         //Kiem tra user dang dang nhap thuoc department nao
-                        var departmentID = db.Teams.FirstOrDefault(x => x.TeamID == user.TeamID).DepartmentID;
+                        var departmentID = db.Teams.FirstOrDefault(x => x.ID == user.TeamID).DepartmentID;
                         //Lay ra danh sach team thuoc cung department tren
                         var teams = db.Teams.Where(x => x.DepartmentID == departmentID).ToList();
 
                         //Lay tat ca nhung ID cua team thuoc cung department them vao danh sach vua tao o tren (var listTeamID = new List<int>();) da khai bao o tren roi
                         foreach (var item in teams)
                         {
-                            listTeamID.Add(item.TeamID);
+                            listTeamID.Add(item.ID);
                         }
                         var model = (from record in records
                                      join loc in locations on record.LocationID equals loc.Number into sr
@@ -279,14 +273,14 @@ namespace DemoDoan.Controllers
                                      join cate in categories on record.CategoryID equals cate.CategoryID
                                      join sta in status on record.StatusID equals sta.StatusID into aa
                                      from x2 in aa.DefaultIfEmpty()
-                                     join tea in teamids on record.TeamID equals tea.TeamID into bb
+                                     join tea in teamids on record.TeamID equals tea.ID into bb
                                      from x3 in bb.DefaultIfEmpty()
                                      join dep in departments on record.DepartmentID equals dep.DepartmentID into ab
                                      from x4 in ab.DefaultIfEmpty()
                                          //Left Join LinQ
                                      join sub in subCategories on record.SubCategoryID equals sub.SubCategoryID into scate
                                      from x5 in scate.DefaultIfEmpty()
-                                     join usr in db.userAccount on record.UserID equals usr.UserID
+                                     join usr in db.UserAccounts on record.UserID equals usr.UserID
                                      where listTeamID.Contains(record.TeamID)
                                      join color in db.ColorCodes on record.ColorCodeID equals color.ID
 
@@ -419,14 +413,14 @@ namespace DemoDoan.Controllers
                          join cate in categories on record.CategoryID equals cate.CategoryID
                          join sta in status on record.StatusID equals sta.StatusID into aa
                          from x2 in aa.DefaultIfEmpty()
-                         join tea in teamids on record.TeamID equals tea.TeamID into bb
+                         join tea in teamids on record.TeamID equals tea.ID into bb
                          from x3 in bb.DefaultIfEmpty()
                          join dep in departments on record.DepartmentID equals dep.DepartmentID into ab
                          from x4 in ab.DefaultIfEmpty()
                              //Left Join LinQ
                          join sub in subCategories on record.SubCategoryID equals sub.SubCategoryID into scate
                          from x5 in scate.DefaultIfEmpty()
-                         join usr in db.userAccount on record.UserID equals usr.UserID
+                         join usr in db.UserAccounts on record.UserID equals usr.UserID
                          //buoc nay la buoc bat buoc
                          select new LoadDataRecordVM
                          {
@@ -750,27 +744,27 @@ namespace DemoDoan.Controllers
                 status = true
             }, JsonRequestBehavior.AllowGet);
         }
-        [HttpGet]
-        public JsonResult GetAllSelect()
+        public async Task<JsonResult> GetAllSelect()
         {
             //JavaScriptSerializer serializer = new JavaScriptSerializer();
             //var record = serializer.Deserialize<Record>(obj);
             //Lay danh sach
             var LangID = Session[UserVM.CurrentCulture].ToString();
-            var listStatus = db.Status.Where(x => x.LanguageID == LangID).ToList();
-            var listCategories = db.Categories.Where(x => x.LanguageID == LangID).ToList();
-            var listSubCategories = db.SubCategories.Where(x => x.LanguageID == LangID).ToList();
-            var listLocations = db.Locations.Where(x => x.LanguageID == LangID).ToList();
-            var listColoCodes = db.ColorCodes.ToList();
+
+            var listStatus =await db.Status.Select(x=>new { x.StatusID, x.StatusLangs.FirstOrDefault(a=>a.LanguageID== LangID).Name }).ToListAsync();
+            var listCategories =await db.Categories.Select(x => new { x.CategoryID, x.CategoryLangs.FirstOrDefault(a => a.LanguageID == LangID).Name }).ToListAsync();
+            var listSubCategories =await db.SubCategories.Select(x => new { x.SubCategoryID, x.SubCategoryLangs.FirstOrDefault(a => a.LanguageID == LangID).Name }).ToListAsync();
+            var listLocations =await db.Locations.Select(x => new { x.Number,Content= x.LocationLangs.FirstOrDefault(a => a.LanguageID == LangID).Name }).ToListAsync();
+            var listColoCodes =await db.ColorCodes.Select(x => new { x.ID, x.Name }).ToListAsync();
             return Json(new
             {
                 //Tra ve
                 status = true,
-                listStatus,
-                listCategories,
-                listSubCategories,
-                listLocations,
-                listColoCodes
+                listStatus = listStatus,
+                listCategories = listCategories,
+                listSubCategories = listSubCategories,
+                listLocations = listLocations,
+                listColoCodes = listColoCodes
             }, JsonRequestBehavior.AllowGet);
         }
         //Records/Delete/{id}

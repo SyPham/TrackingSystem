@@ -45,9 +45,6 @@
         <th>
             @StaticResource.Resource.SubCategory_CategoryName
         </th>
-        <th>
-            @StaticResource.Resource.General_Language
-        </th>
         <th>Option</th>
     </tr>
 
@@ -60,9 +57,6 @@
             </td>
             <td>
                 @Html.DisplayFor(model => item.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Language)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.SubCategoryID }, htmlAttributes: new { @class = "btn btn-sm btn-primary" }) |

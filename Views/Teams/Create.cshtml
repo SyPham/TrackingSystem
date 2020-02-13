@@ -3,9 +3,8 @@
 @{
     ViewBag.Title = "Create";
     var department = (IEnumerable<DemoDoan.Models.Department>)ViewBag.Department;
+    var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
 }
-
-
 
 @using (Html.BeginForm())
 {
@@ -21,28 +20,44 @@
         </div>
         <div class="col-lg-12">
             <div class="form-group">
-                @Html.LabelFor(model => model.Name)
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                <label>Name VI</label>
+                <input type="text" name="nameVI" class="form-control" id="nameVI" />
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label>Name EN</label>
+                <input type="text" name="nameEN" class="form-control" id="nameEN" />
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label>Name TW</label>
+                <input type="text" name="nameTW" class="form-control" id="nameTW" />
             </div>
         </div>
         <div class="col-lg-12">
             <div class="form-group">
                 @Html.LabelFor(model => model.DepartmentID)
-                @Html.DropDownListFor(model => model.DepartmentID, new SelectList(department, "DepartmentID", "Name"), "- Please Select -", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.DepartmentID, new SelectList(department, "DepartmentID", "Name"), "- Please Select -", new { @class = "form-control Department" })
                 @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
             </div>
-
         </div>
         <div class="col-lg-12">
-
             <div class="form-group">
                 <input type="submit" StaticResource.Resource.General_Create class="btn btn-default" />
             </div>
         </div>
         <div class="col-lg-12">
-            @Html.ActionLink(StaticResource.Resource.General_BackToList,"Index", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
-
+            @Html.ActionLink(StaticResource.Resource.General_BackToList, "Index", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
         </div>
     </div>
+}
+@section scripts {
+    <script>
+        var roleCode = @Html.Raw(Json.Encode(user.RoleCode));
+        if (roleCode === DEPTHEAD) {
+            $('.Department').val(departmentID)
+        }
+    </script>
 }

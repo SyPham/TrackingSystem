@@ -42,7 +42,7 @@ namespace DemoDoan.Controllers
 
             //update languageID trong bang user
             var sss = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
-            var item = db.userAccount.Find(sss.UserID);
+            var item = db.UserAccounts.Find(sss.UserID);
             item.LanguageID = ddCulture;
             ////Luu db
             db.SaveChanges();

@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DemoDoan.Models;
@@ -19,13 +20,9 @@ namespace DemoDoan.Controllers
         // GET: Locations
         public ActionResult Index(int page = 1)
         {
-            var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
-            //query lay tat ca record theo ngon ngu hien ma user chon
+            ViewBag.Teams = db.Locations;
 
-            var LangID = Session[UserVM.CurrentCulture].ToString();
-            ViewBag.Teams = db.Locations.Where(x => x.LanguageID == LangID);
-
-            return View(db.Locations.OrderBy(x=>x.LanguageID).ToPagedList(page,10));
+            return View(db.Locations.OrderBy(x=>x.Number).ToPagedList(page,10));
         }
 
         // GET: Locations/Details/5
@@ -43,77 +40,138 @@ namespace DemoDoan.Controllers
             return View(location);
         }
 
-        // GET: Locations/Create
+        // GET: Categories/Create
         public ActionResult Create()
         {
-            var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
-            //query lay tat ca record theo ngon ngu hien ma user chon
-
-            var LangID = Session[UserVM.CurrentCulture].ToString();
-            ViewBag.Locations = db.Locations.Where(x => x.LanguageID == LangID);
-            ViewBag.Department = db.Departments.Where(x => x.LanguageID == LangID);
-            ViewBag.Team = db.Teams.Where(x => x.LanguageID == LangID);
-            ViewBag.Language = db.Language;
             return View();
         }
 
         // POST: Locations/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Number,Content,Remark,DepartmentID,TeamID,LanguageID")] Location location)
+        public async Task<ActionResult> Create(Location location, string nameVI, string nameEN, string NameTW)
         {
-            if (ModelState.IsValid)
+            try
             {
+                location.Content = nameVI + " - " + nameEN + " - " + NameTW; ;
                 db.Locations.Add(location);
-                location.LanguageID = Session[UserVM.CurrentCulture].ToString();
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                await db.SaveChangesAsync();
+                LocationLang vn = new LocationLang();
+                vn.Name = nameVI;
+                vn.LanguageID = "vi";
+                vn.LocationID = location.Number;
+                db.LocationLangs.Add(vn);
 
-            return View(location);
+                LocationLang en = new LocationLang();
+                en.Name = nameEN;
+                en.LanguageID = "en";
+                en.LocationID = location.Number;
+                db.LocationLangs.Add(en);
+
+                LocationLang tw = new LocationLang();
+                tw.Name = NameTW;
+                tw.LanguageID = "en";
+                tw.LocationID = location.Number;
+                db.LocationLangs.Add(tw);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception)
+            {
+                return View(location);
+            }
         }
 
-        // GET: Locations/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Location location = db.Locations.Find(id);
+            var location = await db.Locations.FindAsync(id);
+            var itemVi = await db.LocationLangs.FirstOrDefaultAsync(x => x.LocationID == id && x.LanguageID == "vi");
+            var itemEn = await db.LocationLangs.FirstOrDefaultAsync(x => x.LocationID == id && x.LanguageID == "en");
+            var itemTw = await db.LocationLangs.FirstOrDefaultAsync(x => x.LocationID == id && x.LanguageID == "tw");
+            if (itemVi == null) ViewBag.VI = location.Content; else ViewBag.VI = itemVi.Name;
+            if (itemEn == null) ViewBag.EN = location.Content; else ViewBag.EN = itemEn.Name;
+            if (itemTw == null) ViewBag.TW = location.Content; else ViewBag.TW = itemTw.Name;
             if (location == null)
             {
                 return HttpNotFound();
             }
+
             var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
             //query lay tat ca record theo ngon ngu hien ma user chon
 
             var LangID = Session[UserVM.CurrentCulture].ToString();
-            ViewBag.Locations = db.Locations.Where(x => x.LanguageID == LangID);
-            ViewBag.Department = db.Departments.Where(x => x.LanguageID == LangID);
-            ViewBag.Team = db.Teams.Where(x => x.LanguageID == LangID);
-            ViewBag.Language = db.Language;
+            ViewBag.Languages = db.Language.ToList();
             return View(location);
         }
 
-        // POST: Locations/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Number,Content,Remark,DepartmentID,TeamID,LanguageID")] Location location)
+        public async Task<ActionResult> Edit(Location location, string nameVI, string nameEN, string nameTW)
         {
-            if (ModelState.IsValid)
+            try
             {
-                location.LanguageID = Session[UserVM.CurrentCulture].ToString();
-                db.Entry(location).State = EntityState.Modified;
-                db.SaveChanges();
+                var id = location.Number;
+                var itemOri = await db.Locations.FindAsync(id);
+                var itemVi = await db.LocationLangs.FirstOrDefaultAsync(x => x.LocationID == id && x.LanguageID == "vi");
+                var itemEn = await db.LocationLangs.FirstOrDefaultAsync(x => x.LocationID == id && x.LanguageID == "en");
+                var itemTw = await db.LocationLangs.FirstOrDefaultAsync(x => x.LocationID == id && x.LanguageID == "tw");
+
+                await db.SaveChangesAsync();
+                if (itemVi == null)
+                {
+                    LocationLang vn = new LocationLang();
+                    vn.Name = nameVI;
+                    vn.LanguageID = "vi";
+                    vn.LocationID = location.Number;
+                    db.LocationLangs.Add(vn);
+                }
+                else
+                {
+                    itemVi.Name = nameVI;
+                }
+                if (itemTw == null)
+                {
+                    LocationLang tw = new LocationLang();
+                    tw.Name = nameTW;
+                    tw.LanguageID = "tw";
+                    tw.LocationID = location.Number;
+                    db.LocationLangs.Add(tw);
+                }
+                else
+                {
+                    itemTw.Name = nameTW;
+                }
+                if (itemEn == null)
+                {
+                    LocationLang en = new LocationLang();
+                    en.Name = nameEN;
+                    en.LanguageID = "en";
+                    en.LocationID = location.Number;
+                    db.LocationLangs.Add(en);
+                }
+                else
+                {
+                    itemEn.Name = nameEN;
+                }
+                itemOri.Content = nameVI + " - " + nameEN + " - " + nameTW;
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
+
             }
-            return View(location);
+            catch (Exception)
+            {
+                return View(location);
+
+            }
         }
+
 
         [HttpPost, ActionName("Delete")]
         public ActionResult Delete(int id)

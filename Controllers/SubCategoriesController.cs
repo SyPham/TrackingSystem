@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DemoDoan.Models;
@@ -16,110 +17,161 @@ namespace DemoDoan.Controllers
     {
         private OurDbContext db = new OurDbContext();
 
-        // GET: SubCategories
+        // GET: SubSubCategories
         public ActionResult Index(int page = 1)
         {
-            var LangID = Session[UserVM.CurrentCulture].ToString();
             var model = db.SubCategories.Select(x => new SubcategoryVM
             {
-                CategoryName = db.Categories.FirstOrDefault(a=>a.CategoryID == x.CategoryID).Name,
-                LanguageID = x.LanguageID,
                 SubCategoryName = x.Name,
+                CategoryName = x.Name,
                 SubCategoryID = x.SubCategoryID,
-                Language = db.Language.FirstOrDefault(a => a.LanguageID == x.LanguageID).Name
-            }).Where(x => x.LanguageID == LangID).ToList().ToPagedList(page, 10);
+                CreateTime = x.CreateTime
+            }).OrderBy(x=>x.CreateTime).ToList().ToPagedList(page, 10);
           
             return View(model);
         }
 
-        // GET: SubCategories/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SubCategory subCategory = db.SubCategories.Find(id);
-            if (subCategory == null)
-            {
-                return HttpNotFound();
-            }
-            return View(subCategory);
-        }
 
         // GET: SubCategories/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
-            //query lay tat ca record theo ngon ngu hien ma user chon
-
-            var LangID = Session[UserVM.CurrentCulture].ToString();
-            ViewBag.SubCategories = db.SubCategories.Where(x => x.LanguageID == LangID);
-            ViewBag.Categories = db.Categories.Where(x => x.LanguageID == LangID);
-            ViewBag.Languages = db.Language;
+            ViewBag.Categories =await db.Categories.ToListAsync();
             return View();
         }
 
         // POST: SubCategories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SubCategoryID,Name,CreateTime,CategoryID,LanguageID")] SubCategory subCategory)
+        public async Task<ActionResult> Create(SubCategory subCategory, string nameVI, string nameEN, string NameTW)
         {
-            if (ModelState.IsValid)
+            try
             {
-                subCategory.CreateTime = DateTime.Now;
+                subCategory.Name = nameVI + " - " + nameEN + " - " + NameTW; ;
                 db.SubCategories.Add(subCategory);
-                subCategory.LanguageID = Session[UserVM.CurrentCulture].ToString();
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                await db.SaveChangesAsync();
+                SubCategoryLang vn = new SubCategoryLang();
+                vn.Name = nameVI;
+                vn.LanguageID = "vi";
+                vn.SubCategoryID = subCategory.SubCategoryID;
+                db.SubCategoryLangs.Add(vn);
 
-            return View(subCategory);
+                SubCategoryLang en = new SubCategoryLang();
+                en.Name = nameEN;
+                en.LanguageID = "en";
+                en.SubCategoryID = subCategory.SubCategoryID;
+                db.SubCategoryLangs.Add(en);
+
+                SubCategoryLang tw = new SubCategoryLang();
+                tw.Name = NameTW;
+                tw.LanguageID = "en";
+                tw.SubCategoryID = subCategory.SubCategoryID;
+                db.SubCategoryLangs.Add(tw);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception)
+            {
+                return View(subCategory);
+            }
         }
 
-        // GET: SubCategories/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SubCategory subCategory = db.SubCategories.Find(id);
+            var subCategory = await db.SubCategories.FindAsync(id);
+            var itemVi = await db.SubCategoryLangs.FirstOrDefaultAsync(x => x.SubCategoryID == id && x.LanguageID == "vi");
+            var itemEn = await db.SubCategoryLangs.FirstOrDefaultAsync(x => x.SubCategoryID == id && x.LanguageID == "en");
+            var itemTw = await db.SubCategoryLangs.FirstOrDefaultAsync(x => x.SubCategoryID == id && x.LanguageID == "tw");
+            if (itemVi == null) ViewBag.VI = subCategory.Name; else ViewBag.VI = itemVi.Name;
+            if (itemEn == null) ViewBag.EN = subCategory.Name; else ViewBag.EN = itemEn.Name;
+            if (itemTw == null) ViewBag.TW = subCategory.Name; else ViewBag.TW = itemTw.Name;
             if (subCategory == null)
             {
                 return HttpNotFound();
             }
+
+            var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
+            //query lay tat ca record theo ngon ngu hien ma user chon
+
             var LangID = Session[UserVM.CurrentCulture].ToString();
-            ViewBag.Languages = db.Language;
-            ViewBag.Category = db.Categories.Where(x => x.LanguageID == LangID);
+            ViewBag.Languages = db.Language.ToList();
             return View(subCategory);
         }
 
-        // POST: SubCategories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SubCategoryID,Name,CreateTime,CategoryID,LanguageID")] SubCategory subCategory)
+        public async Task<ActionResult> Edit(SubCategory subCategory, string nameVI, string nameEN, string nameTW)
         {
-            if (ModelState.IsValid)
+            try
             {
-                subCategory.CreateTime = DateTime.Now;
-                db.Entry(subCategory).State = EntityState.Modified;
-                subCategory.LanguageID = Session[UserVM.CurrentCulture].ToString();
-                db.SaveChanges();
+                var id = subCategory.SubCategoryID;
+                var itemOri = await db.SubCategories.FindAsync(id);
+                var itemVi = await db.SubCategoryLangs.FirstOrDefaultAsync(x => x.SubCategoryID == id && x.LanguageID == "vi");
+                var itemEn = await db.SubCategoryLangs.FirstOrDefaultAsync(x => x.SubCategoryID == id && x.LanguageID == "en");
+                var itemTw = await db.SubCategoryLangs.FirstOrDefaultAsync(x => x.SubCategoryID == id && x.LanguageID == "tw");
+
+                await db.SaveChangesAsync();
+                if (itemVi == null)
+                {
+                    SubCategoryLang vn = new SubCategoryLang();
+                    vn.Name = nameVI;
+                    vn.LanguageID = "vi";
+                    vn.SubCategoryID = subCategory.SubCategoryID;
+                    db.SubCategoryLangs.Add(vn);
+                }
+                else
+                {
+                    itemVi.Name = nameVI;
+                }
+                if (itemTw == null)
+                {
+                    SubCategoryLang tw = new SubCategoryLang();
+                    tw.Name = nameTW;
+                    tw.LanguageID = "tw";
+                    tw.SubCategoryID = subCategory.SubCategoryID;
+                    db.SubCategoryLangs.Add(tw);
+                }
+                else
+                {
+                    itemTw.Name = nameTW;
+                }
+                if (itemEn == null)
+                {
+                    SubCategoryLang en = new SubCategoryLang();
+                    en.Name = nameEN;
+                    en.LanguageID = "en";
+                    en.SubCategoryID = subCategory.SubCategoryID;
+                    db.SubCategoryLangs.Add(en);
+                }
+                else
+                {
+                    itemEn.Name = nameEN;
+                }
+                itemOri.CategoryID = subCategory.CategoryID;
+                itemOri.Name = nameVI + " - " + nameEN + " - " + nameTW;
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
+
             }
-            return View(subCategory);
+            catch (Exception)
+            {
+                return View(subCategory);
+
+            }
         }
+
         [HttpPost, ActionName("Delete")]
         public ActionResult Delete(int id)
         {
             bool status;
-            SubCategory subCategory = db.SubCategories.Find(id);
-            db.SubCategories.Remove(subCategory);
+            var subSubCategory = db.SubCategories.Find(id);
+            db.SubCategories.Remove(subSubCategory);
             try
             {
                 db.SaveChanges();
@@ -132,7 +184,7 @@ namespace DemoDoan.Controllers
             return Json(new
             {
                 status,
-                url = "/SubCategories"
+                url = "/SubSubCategories"
             }, JsonRequestBehavior.AllowGet);
         }
         protected override void Dispose(bool disposing)

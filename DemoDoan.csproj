@@ -48,6 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -159,10 +162,16 @@
     <Compile Include="Dao\NotificationsDao.cs" />
     <Compile Include="Dao\PermissionDao.cs" />
     <Compile Include="Dao\RecordDao.cs" />
+    <Compile Include="Dto\DepartmentDto.cs" />
+    <Compile Include="Dto\LocationDto.cs" />
+    <Compile Include="Dto\TeamDto.cs" />
+    <Compile Include="Dto\UserAccountDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="helpers\Codeutilities.cs" />
+    <Compile Include="helpers\CodeUtility.cs" />
+    <Compile Include="helpers\Commons.cs" />
     <Compile Include="Migrations\201910120914127_version1.cs" />
     <Compile Include="Migrations\201910120914127_version1.Designer.cs">
       <DependentUpon>201910120914127_version1.cs</DependentUpon>
@@ -239,7 +248,68 @@
     <Compile Include="Migrations\201911110953062_version1.1.1.Designer.cs">
       <DependentUpon>201911110953062_version1.1.1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911120525050_version1.1.2.cs" />
+    <Compile Include="Migrations\201911120525050_version1.1.2.Designer.cs">
+      <DependentUpon>201911120525050_version1.1.2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911120900597_version1.1.3.cs" />
+    <Compile Include="Migrations\201911120900597_version1.1.3.Designer.cs">
+      <DependentUpon>201911120900597_version1.1.3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911120914081_version1.1.4.cs" />
+    <Compile Include="Migrations\201911120914081_version1.1.4.Designer.cs">
+      <DependentUpon>201911120914081_version1.1.4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911120918155_version1.1.5.cs" />
+    <Compile Include="Migrations\201911120918155_version1.1.5.Designer.cs">
+      <DependentUpon>201911120918155_version1.1.5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911120919353_version1.1.6.cs" />
+    <Compile Include="Migrations\201911120919353_version1.1.6.Designer.cs">
+      <DependentUpon>201911120919353_version1.1.6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911130153552_version1.1.7.cs" />
+    <Compile Include="Migrations\201911130153552_version1.1.7.Designer.cs">
+      <DependentUpon>201911130153552_version1.1.7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911130457307_version1.1.8.cs" />
+    <Compile Include="Migrations\201911130457307_version1.1.8.Designer.cs">
+      <DependentUpon>201911130457307_version1.1.8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911130504561_version1.1.9.cs" />
+    <Compile Include="Migrations\201911130504561_version1.1.9.Designer.cs">
+      <DependentUpon>201911130504561_version1.1.9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911130506100_version1.2.0.cs" />
+    <Compile Include="Migrations\201911130506100_version1.2.0.Designer.cs">
+      <DependentUpon>201911130506100_version1.2.0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911130507300_version1.2.1.cs" />
+    <Compile Include="Migrations\201911130507300_version1.2.1.Designer.cs">
+      <DependentUpon>201911130507300_version1.2.1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911130512285_version1.2.2.cs" />
+    <Compile Include="Migrations\201911130512285_version1.2.2.Designer.cs">
+      <DependentUpon>201911130512285_version1.2.2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911130642022_version1.2.3.cs" />
+    <Compile Include="Migrations\201911130642022_version1.2.3.Designer.cs">
+      <DependentUpon>201911130642022_version1.2.3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911130645120_version1.2.4.cs" />
+    <Compile Include="Migrations\201911130645120_version1.2.4.Designer.cs">
+      <DependentUpon>201911130645120_version1.2.4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Common.cs" />
+    <Compile Include="Models\Menu.cs" />
+    <Compile Include="Models\SubCategoryLang.cs" />
+    <Compile Include="Models\TeamLang.cs" />
+    <Compile Include="Models\StatusLang.cs" />
+    <Compile Include="Models\LocationLang.cs" />
+    <Compile Include="Models\DepartmentLang.cs" />
+    <Compile Include="Models\GeneralLang.cs" />
+    <Compile Include="Models\CategoryLang.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ColorCode.cs" />
     <Compile Include="Models\Department.cs" />
@@ -253,6 +323,7 @@
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\Record.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\RoleUser.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\Team.cs" />
@@ -451,6 +522,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\constant.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -615,6 +687,45 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911110953062_version1.1.1.resx">
       <DependentUpon>201911110953062_version1.1.1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911120525050_version1.1.2.resx">
+      <DependentUpon>201911120525050_version1.1.2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911120900597_version1.1.3.resx">
+      <DependentUpon>201911120900597_version1.1.3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911120914081_version1.1.4.resx">
+      <DependentUpon>201911120914081_version1.1.4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911120918155_version1.1.5.resx">
+      <DependentUpon>201911120918155_version1.1.5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911120919353_version1.1.6.resx">
+      <DependentUpon>201911120919353_version1.1.6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911130153552_version1.1.7.resx">
+      <DependentUpon>201911130153552_version1.1.7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911130457307_version1.1.8.resx">
+      <DependentUpon>201911130457307_version1.1.8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911130504561_version1.1.9.resx">
+      <DependentUpon>201911130504561_version1.1.9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911130506100_version1.2.0.resx">
+      <DependentUpon>201911130506100_version1.2.0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911130507300_version1.2.1.resx">
+      <DependentUpon>201911130507300_version1.2.1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911130512285_version1.2.2.resx">
+      <DependentUpon>201911130512285_version1.2.2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911130642022_version1.2.3.resx">
+      <DependentUpon>201911130642022_version1.2.3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911130645120_version1.2.4.resx">
+      <DependentUpon>201911130645120_version1.2.4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

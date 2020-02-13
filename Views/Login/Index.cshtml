@@ -2,7 +2,7 @@
 
 @{
 
-       Layout = null;
+    Layout = null;
 }
 <!DOCTYPE html>
 <html>
@@ -33,28 +33,37 @@
                     <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", placeholder = "Username" } })
                         @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control"} })
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password" })
                         @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     </div>
-                    
+
                     <div class="form-group btn-container">
                         <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
                     </div>
+                    <div class="form-group">
+                        <div class="utility">
+                            <p class="semibold-text m-auto"><a href="#" data-toggle="flip">Forgot Password ?</a></p>
+                        </div>
+                    </div>
                 </div>
             }
-            <form class="forget-form" action="index.html">
+            <form class="forget-form" method="get" id="registerSubmit">
                 <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>Forgot Password ?</h3>
                 <div class="form-group">
-                    <label class="control-label">EMAIL</label>
-                    <input class="form-control" type="text" placeholder="Email">
+                    <label class="control-label">Company Email</label>
+                    <input class="form-control" type="text" name="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">EmployeeID</label>
+                    <input class="form-control" name="idcard" type="text" placeholder="EmployeeID">
                 </div>
                 <div class="form-group btn-container">
-                    <button class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>RESET</button>
+                    <button class="btn btn-primary btn-block" id="RESET" ><i class="fa fa-unlock fa-lg fa-fw"></i>RESET</button>
                 </div>
                 <div class="form-group mt-3">
                     <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Back to Login</a></p>
@@ -64,16 +73,35 @@
     </section>
     <!-- Essential javascripts for application to work-->
     <script src="~/htmls/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/plugins/sweetalert/sweetalert2@8.js"></script>
+    <script src="~/Scripts/constant.js"></script>
     <script src="~/htmls/js/popper.min.js"></script>
     <script src="~/htmls/js/bootstrap.min.js"></script>
     <script src="~/htmls/js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="~/htmls/js/plugins/pace.min.js"></script>
     <script type="text/javascript">
-    // Login Page Flipbox control
+        // Login Page Flipbox control
         $('.login-content [data-toggle="flip"]').click(function () {
             $('.login-box').toggleClass('flipped');
             return false;
-        });</script>
+        });
+        $("#RESET").off("click").on("click", function (e) {
+            e.preventDefault();
+            resetPassword();
+        })
+        function resetPassword() {
+            $get("/Login/ForGotPassword", $("#registerSubmit").serialize())
+                .then(data => {
+                    if (data.status) {
+                         $success(data.message,false);
+                         $('#registerSubmit')[0].reset();
+                    } 
+                    else
+                          $error(data.message,false);
+                })
+        }
+       
+    </script>
 </body>
 </html>

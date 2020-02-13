@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DemoDoan.Models;
@@ -19,25 +20,21 @@ namespace DemoDoan.Controllers
         // GET: Teams
         public ActionResult Index(int page = 1)
         {
-            //Join do do lieu tu UserAccountVM len giao dien
-            var LangID = Session[UserVM.CurrentCulture].ToString();
 
             //check languages for users can not, edit page example same
-            var teamids = db.Teams.Where(x => x.LanguageID == LangID);
-            var departments = db.Departments.Where(x => x.LanguageID == LangID);
+            var teamids = db.Teams;
+            var departments = db.Departments;
 
             var model = from team in teamids
                         join dep in departments on team.DepartmentID equals dep.DepartmentID
-                        join lang in db.Language on team.LanguageID equals lang.LanguageID
                         select new TeamVM
                         {
-                            TeamID = team.TeamID,
+                            TeamID = team.ID,
                             TeamName = team.Name,
                             DepartmentID = dep.DepartmentID,
                             Department = dep.Name,
-                            LanguageID = team.LanguageID,
                         };
-            var data = model.ToList().ToPagedList(page,10);
+            var data = model.OrderBy(x=>x.TeamID).ToList().ToPagedList(page, 10);
             return View(data);
         }
 
@@ -57,74 +54,139 @@ namespace DemoDoan.Controllers
         }
 
         // GET: Teams/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
-            //query lay tat ca record theo ngon ngu hien ma user chon
-
-            var LangID = Session[UserVM.CurrentCulture].ToString();
-            ViewBag.Department = db.Departments.Where(x => x.LanguageID == LangID);
+            ViewBag.Department =await db.Departments.ToListAsync();
             return View();
         }
 
         // POST: Teams/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( Team team)
+        public async Task<ActionResult> Create(Team team, string nameVI, string nameEN, string NameTW)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Random random = new Random();
-                int randomNumber = random.Next(0, 1000);
-                team.TeamID = randomNumber;
+                team.Name = nameVI + " - " + nameEN + " - " + NameTW; ;
                 db.Teams.Add(team);
-                //kiem tra languages trong session va lay ra languages
-                team.LanguageID = Session[UserVM.CurrentCulture].ToString();
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                await db.SaveChangesAsync();
+                TeamLang vn = new TeamLang();
+                vn.Name = nameVI;
+                vn.LanguageID = "vi";
+                vn.TeamID = team.ID;
+                db.TeamLangs.Add(vn);
 
-            return View(team);
+                TeamLang en = new TeamLang();
+                en.Name = nameEN;
+                en.LanguageID = "en";
+                en.TeamID = team.ID;
+                db.TeamLangs.Add(en);
+
+                TeamLang tw = new TeamLang();
+                tw.Name = NameTW;
+                tw.LanguageID = "en";
+                tw.TeamID = team.ID;
+                db.TeamLangs.Add(tw);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception)
+            {
+                return View(team);
+            }
         }
 
-        // GET: Teams/Edit/5
-        public ActionResult Edit(int? id)
+
+        public async Task<ActionResult> Edit(int? id)
         {
-            ViewBag.Department = db.Departments.ToList();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Teams.Find(id);
+            ViewBag.Department = await db.Departments.ToListAsync();
+            var team = await db.Teams.FindAsync(id);
+            var itemVi = await db.TeamLangs.FirstOrDefaultAsync(x => x.TeamID == id && x.LanguageID == "vi");
+            var itemEn = await db.TeamLangs.FirstOrDefaultAsync(x => x.TeamID == id && x.LanguageID == "en");
+            var itemTw = await db.TeamLangs.FirstOrDefaultAsync(x => x.TeamID == id && x.LanguageID == "tw");
+            if (itemVi == null) ViewBag.VI = team.Name; else ViewBag.VI = itemVi.Name;
+            if (itemEn == null) ViewBag.EN = team.Name; else ViewBag.EN = itemEn.Name;
+            if (itemTw == null) ViewBag.TW = team.Name; else ViewBag.TW = itemTw.Name;
             if (team == null)
             {
                 return HttpNotFound();
             }
+
             var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
             //query lay tat ca record theo ngon ngu hien ma user chon
 
             var LangID = Session[UserVM.CurrentCulture].ToString();
-            ViewBag.Department = db.Departments.Where(x => x.LanguageID == LangID);
+            ViewBag.Languages = db.Language.ToList();
             return View(team);
         }
 
-        // POST: Teams/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Team team)
+        public async Task<ActionResult> Edit(Team team, string nameVI, string nameEN, string nameTW)
         {
-            if (ModelState.IsValid)
+            try
             {
-                team.LanguageID = Session[UserVM.CurrentCulture].ToString();
-                db.Entry(team).State = EntityState.Modified;
-                db.SaveChanges();
+                var id = team.ID;
+                var itemOri = await db.Teams.FindAsync(id);
+                var itemVi = await db.TeamLangs.FirstOrDefaultAsync(x => x.TeamID == id && x.LanguageID == "vi");
+                var itemEn = await db.TeamLangs.FirstOrDefaultAsync(x => x.TeamID == id && x.LanguageID == "en");
+                var itemTw = await db.TeamLangs.FirstOrDefaultAsync(x => x.TeamID == id && x.LanguageID == "tw");
+
+                await db.SaveChangesAsync();
+                if (itemVi == null)
+                {
+                    TeamLang vn = new TeamLang();
+                    vn.Name = nameVI;
+                    vn.LanguageID = "vi";
+                    vn.TeamID = team.ID;
+                    db.TeamLangs.Add(vn);
+                }
+                else
+                {
+                    itemVi.Name = nameVI;
+                }
+                if (itemTw == null)
+                {
+                    TeamLang tw = new TeamLang();
+                    tw.Name = nameTW;
+                    tw.LanguageID = "tw";
+                    tw.TeamID = team.ID;
+                    db.TeamLangs.Add(tw);
+                }
+                else
+                {
+                    itemTw.Name = nameTW;
+                }
+                if (itemEn == null)
+                {
+                    TeamLang en = new TeamLang();
+                    en.Name = nameEN;
+                    en.LanguageID = "en";
+                    en.TeamID = team.ID;
+                    db.TeamLangs.Add(en);
+                }
+                else
+                {
+                    itemEn.Name = nameEN;
+                }
+                itemOri.Name = nameVI + " - " + nameEN + " - " +nameTW;
+                itemOri.DepartmentID = team.DepartmentID;
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
+
             }
-            return View(team);
+            catch (Exception)
+            {
+                return View(team);
+
+            }
         }
 
         [HttpPost, ActionName("Delete")]

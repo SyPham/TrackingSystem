@@ -18,10 +18,10 @@ namespace DemoDoan.Models
         {
             //throw new UnintentionalCodeFirstException();
             modelBuilder.Entity<Team>()
-             .Property(c => c.TeamID)
-             .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+             .Property(c => c.ID)
+             .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
         }
-        public DbSet<UserAccount> userAccount { get; set; }
+        public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Location> Locations { get; set; }
@@ -34,11 +34,18 @@ namespace DemoDoan.Models
         public DbSet<Notifications> Notifications { get; set; }
         public DbSet<NotificationDetail> NotificationDetails { get; set; }
         public DbSet<Language> Language { get; set; }
-
         public DbSet<UserLanguages> UserLanguages { get; set; }
         public DbSet<ColorCode> ColorCodes { get; set; }
         public DbSet<DepartmentManger> DepartmentMangers { get; set; }
         public DbSet<PermissionDetail> PermissionDetails { get; set; }
+        public DbSet<RoleUser> RoleUsers { get; set; }
+
+        public DbSet<CategoryLang> CategoryLangs { get; set; }
+        public DbSet<SubCategoryLang> SubCategoryLangs{ get; set; }
+        public DbSet<DepartmentLang> DepartmentLangs { get; set; }
+        public DbSet<LocationLang> LocationLangs { get; set; }
+        public DbSet<StatusLang> StatusLangs { get; set; }
+        public DbSet<TeamLang> TeamLangs { get; set; }
 
     }
 }

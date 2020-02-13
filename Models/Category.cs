@@ -30,5 +30,7 @@ namespace DemoDoan.Models
 
         [Display(Name = "Category_LanguageID", ResourceType = typeof(StaticResource.Resource))]
         public string LanguageID { get; set; }
+
+        public virtual List<CategoryLang> CategoryLangs { get; set; }
     }
 }

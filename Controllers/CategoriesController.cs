@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DemoDoan.Models;
@@ -25,60 +26,135 @@ namespace DemoDoan.Controllers
         // GET: Categories/Create
         public ActionResult Create()
         {
-            var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
-            //query lay tat ca record theo ngon ngu hien ma user chon
-
-            var LangID = Session[UserVM.CurrentCulture].ToString();
-            ViewBag.Categories = db.Categories.Where(x => x.LanguageID == LangID);
-            ViewBag.Languages = db.Language;
             return View();
         }
 
         // POST: Categories/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Category category)
+        public async Task<ActionResult> Create(Category category, string nameVI, string nameEN, string NameTW)
         {
-            if (ModelState.IsValid)
+            try
             {
+                category.Name = nameVI + " - " + nameEN + " - " + NameTW; ;
                 db.Categories.Add(category);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                await db.SaveChangesAsync();
+                CategoryLang vn = new CategoryLang();
+                vn.Name = nameVI;
+                vn.LanguageID = "vi";
+                vn.CategoryID = category.CategoryID;
+                db.CategoryLangs.Add(vn);
 
-            return View(category);
+                CategoryLang en = new CategoryLang();
+                en.Name = nameEN;
+                en.LanguageID = "en";
+                en.CategoryID = category.CategoryID;
+                db.CategoryLangs.Add(en);
+
+                CategoryLang tw = new CategoryLang();
+                tw.Name = NameTW;
+                tw.LanguageID = "en";
+                tw.CategoryID = category.CategoryID;
+                db.CategoryLangs.Add(tw);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception)
+            {
+                return View(category);
+            }
         }
 
-        // GET: Categories/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            var category = await db.Categories.FindAsync(id);
+            var itemVi = await db.CategoryLangs.FirstOrDefaultAsync(x => x.CategoryID == id && x.LanguageID == "vi");
+            var itemEn = await db.CategoryLangs.FirstOrDefaultAsync(x => x.CategoryID == id && x.LanguageID == "en");
+            var itemTw = await db.CategoryLangs.FirstOrDefaultAsync(x => x.CategoryID == id && x.LanguageID == "tw");
+            if (itemVi == null) ViewBag.VI = category.Name; else ViewBag.VI = itemVi.Name;
+            if (itemEn == null) ViewBag.EN = category.Name; else ViewBag.EN = itemEn.Name;
+            if (itemTw == null) ViewBag.TW = category.Name; else ViewBag.TW = itemTw.Name;
             if (category == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Languages = db.Language;
+
+            var user = (DemoDoan.ViewModel.UserVM)Session["ACCOUNT"];
+            //query lay tat ca record theo ngon ngu hien ma user chon
+
+            var LangID = Session[UserVM.CurrentCulture].ToString();
+            ViewBag.Languages = db.Language.ToList();
             return View(category);
         }
 
-        // POST: Categories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Category category)
+        public async Task<ActionResult> Edit(Category category, string nameVI, string nameEN, string nameTW)
         {
-            if (ModelState.IsValid)
+            try
             {
+                var id = category.CategoryID;
+                var itemOri = await db.Categories.FindAsync(id);
+                var itemVi = await db.CategoryLangs.FirstOrDefaultAsync(x => x.CategoryID == id && x.LanguageID == "vi");
+                var itemEn = await db.CategoryLangs.FirstOrDefaultAsync(x => x.CategoryID == id && x.LanguageID == "en");
+                var itemTw = await db.CategoryLangs.FirstOrDefaultAsync(x => x.CategoryID == id && x.LanguageID == "tw");
 
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
+                if (itemVi == null)
+                {
+                    CategoryLang vn = new CategoryLang();
+                    vn.Name = nameVI;
+                    vn.LanguageID = "vi";
+                    vn.CategoryID = category.CategoryID;
+                    db.CategoryLangs.Add(vn);
+                }
+                else
+                {
+                    itemVi.Name = nameVI;
+                }
+                if (itemTw == null)
+                {
+                    CategoryLang tw = new CategoryLang();
+                    tw.Name = nameTW;
+                    tw.LanguageID = "tw";
+                    tw.CategoryID = category.CategoryID;
+                    db.CategoryLangs.Add(tw);
+                }
+                else
+                {
+                    itemTw.Name = nameTW;
+                }
+                if (itemEn == null)
+                {
+                    CategoryLang en = new CategoryLang();
+                    en.Name = nameEN;
+                    en.LanguageID = "en";
+                    en.CategoryID = category.CategoryID;
+                    db.CategoryLangs.Add(en);
+                }
+                else
+                {
+                    itemEn.Name = nameEN;
+                }
+                itemOri.Name = nameVI + " - " + nameEN + " - " + nameTW;
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
+
             }
-            return View(category);
+            catch (Exception)
+            {
+                return View(category);
+
+            }
         }
+
         [HttpPost, ActionName("Delete")]
         public ActionResult Delete(int id)
         {
